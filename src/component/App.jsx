@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.less';
 
+const Store = require('../flux/stores/vssStore');
 const Login = require('./login');
 const Footbar = require('./footbar');
 const Operation = require('./operation');
@@ -11,19 +12,24 @@ const Aboutme = require('./aboutme');
 class App extends Component {
   componentDidMount(){
     document.addEventListener('deviceready', this.onDeviceReady, false);
-    //console.log($.device)
-    //$.init();
+    Store.addChangeListener(Store.notifytype.loginstate,this.onLoginChange);
   }
   constructor(props) {
     super(props);
     this.state = {
       tabindex:1,
-      login:true
+      login:Store.getloginsuccess()
     };
     this.onSel = this.onSel.bind(this);
+    this.onLoginChange = this.onLoginChange.bind(this);
   }
   onDeviceReady(){
-    alert('DeviceReady');
+    //alert('DeviceReady');
+  }
+  onLoginChange(){
+    this.setState({
+      login:Store.getloginsuccess()
+    });
   }
   onSel(tabindex){
     //alert(tabindex);

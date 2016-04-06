@@ -27,7 +27,7 @@ class Login extends Component {
                   <Icon id="inputicon" type="user" />
                 </div>
                 <div className="weui_cell_bd weui_cell_primary">
-                    <input id="input_username" className="weui_input" placeholder="请输入用户名"/>
+                    <input id="input_username" className="weui_input" defaultValue="" placeholder="请输入用户名"/>
                 </div>
             </div>
             <div className="inputpanel">
@@ -35,7 +35,7 @@ class Login extends Component {
                   <Icon id="inputicon" type="unlock" />
                 </div>
                 <div className="weui_cell_bd weui_cell_primary">
-                    <input id="input_password" className="weui_input" type="password" placeholder="请输入密码"/>
+                    <input id="input_password" className="weui_input" defaultValue="" type="password" placeholder="请输入密码"/>
                 </div>
             </div>
             <a href="javascript:;" id="loginbtn" onClick={this.onClickLogin} className="weui_btn weui_btn_primary">登 录</a>

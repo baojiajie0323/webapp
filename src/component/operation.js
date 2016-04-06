@@ -43,22 +43,22 @@ class Operation extends Component {
         {
             name:'谈话系统',
             type:'bar',
-            data:[320, 332, 301]
+            data:[20, 40, 70]
         },
         {
             name:'访客系统',
             type:'bar',
-            data:[120, 132, 101]
+            data:[18, 75, 40]
         },
         {
             name:'安防系统',
             type:'bar',
-            data:[220, 182, 191]
+            data:[30, 66, 40]
         },
         {
             name:'督导系统',
             type:'bar',
-            data:[150, 232, 201]
+            data:[25, 68, 50]
         }
     ]
 };

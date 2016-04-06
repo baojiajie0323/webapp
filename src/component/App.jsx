@@ -25,6 +25,9 @@ class App extends Component {
   }
   onDeviceReady(){
     //alert('DeviceReady');
+     setTimeout(function(){
+        navigator.splashscreen.hide();
+     },3000);
   }
   onLoginChange(){
     this.setState({

@@ -8,6 +8,7 @@ class Aboutme extends Component {
     Store.setloginsuccess(false);
   }
   onClickQuery(){
+    navigator.vibrate([200, 200, 200]);
     var $dialog = $('#dialog1');
     $dialog.show();
     $dialog.find('.weui_btn_dialog').one('click', function () {

@@ -8,8 +8,10 @@ class Duty extends Component {
         fontSize: '14vh',
         marginTop: '50%'
     }
-    return <div style={{backgroundColor:'blue'}} className="weui_tab_bd">
-            <p style={style}>值班</p>
+    return <div className="weui_tab_bd">
+            <div className="titlebar">
+              <p className="titlebar_title">值班管理</p>
+            </div>
            </div>;
   }
 }

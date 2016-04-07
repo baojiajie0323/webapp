@@ -14,24 +14,21 @@ body{
   background-color: rgb(251,249,254);
 }
 
-#footbar{
-  position: absolute;
-  height: 48px;
-  width: 100%;
-  background-color: red;
-  bottom: 0;
-}
-
 a:hover {
-  color: white;
+  color: rgb(125,127,137);
 }
 
 .weui_tabbar_item{
-    color: rgb(136,136,136)
+    color: rgb(125,127,137);
+    background-color: rgb(42,55,79);
 }
 
 .weui_bar_item_on .weui_tabbar_icon{
-  color:rgb(9,187,7);
+  color:rgb(6,146,144);
+}
+
+.weui_tabbar_item.weui_bar_item_on .weui_tabbar_label {
+  color: rgb(6,146,144);
 }
 
 .anticon{
@@ -112,4 +109,112 @@ a:hover {
   background-size: contain;
   background-repeat: no-repeat;
   margin: 60px auto 60px;
+}
+
+.titlebar{
+  height: 45px;
+  width: 100%;
+  background-color: rgb(42,55,79);
+}
+
+.titlebar:after{
+  content: " ";
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  //background-color: rgb(0,0,0);
+  border-top: 1px solid rgba(0, 0, 0, 0.9);
+}
+
+.titlebar_title{
+  margin-left: 20px;
+  text-align: left;
+  line-height: 45px;
+  color: white;
+  font-size: 16px;
+}
+
+#user_bd{
+  position: relative;
+  margin-top:1px;
+  height: 210px;
+  width: 100%;
+  background-color: rgb(40,53,78);
+}
+
+#user_photo_bg{
+  position: absolute;
+  height: 128px;
+  width: 128px;
+  margin: 25px auto 0px;
+  left: 0;
+  right: 0;
+  border-radius: 64px;
+  background-color: white;
+}
+
+#user_photo{
+  position: absolute;
+  height: 124px;
+  width: 124px;
+  margin: 2px auto;
+  left: 0;
+  right: 0;
+  border-radius: 62px;
+  //background-color: black;
+  background-image: url('../img/photo.jpg');
+  background-repeat: no-repeat;
+  background-position: -57px 0;
+}
+
+#user_name{
+  position: absolute;
+  /* top: 10px; */
+  bottom: 5px;
+  text-align: center;
+  width: 100%;
+  color: white;
+  font-size: 27px;
+}
+
+.info_panel_title{
+  height: 45px;
+  line-height: 45px;
+  font-size: 16px;
+  margin-left: 20px;
+  font-weight: bold;
+  background-color: rgb(247,247,247);
+}
+
+.info_panel_content{
+  height: 45px;
+  line-height: 45px;
+  font-size: 15px;
+  background-color: rgb(255,255,255);
+  display: flex;
+}
+
+.info_pannel_content_key{
+  color:rgb(154,154,156);
+  background-color: rgb(239,239,239);
+  width: 70px;
+  text-align: center;
+}
+
+.info_pannel_content_value{
+  color:rgb(10,10,10);
+  //background-color: rgb(10,10,10);
+  margin-left: 30px;
+  //text-align: center;
+}
+
+.info_pannel_content_last{
+  right: 11px;
+  position: absolute;
+  margin-top: 11px;
+  color: rgb(154, 154, 156);
+}
+
+#logoutbtn{
+  margin-top: 30px;
 }

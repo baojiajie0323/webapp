@@ -71,6 +71,9 @@ class Operation extends Component {
         marginTop: '10%'
     }
     return <div id="operation" className="weui_tab_bd">
+            <div className="titlebar">
+              <p className="titlebar_title">运维管理</p>
+            </div>
             <div id="charts" style={{height:'30%', width:'100%'}}>
             </div>
             <p style={style}>运维</p>

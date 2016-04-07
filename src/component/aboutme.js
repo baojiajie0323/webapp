@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {QueueAnim,Icon } from 'antd';
 import './App.less';
 
 const Store = require('../flux/stores/vssStore');
@@ -9,16 +10,48 @@ class Aboutme extends Component {
   }
   onClickQuery(){
     navigator.vibrate([200, 200, 200]);
-    var $dialog = $('#dialog1');
+    var $dialog = $('#querylogout');
     $dialog.show();
     $dialog.find('.weui_btn_dialog').one('click', function () {
                         $dialog.hide();
     });
   }
   render() {
-    return <div style={{backgroundColor:'gray'}} className="weui_tab_bd">
-            <a href="javascript:;" id="showDialog1" onClick={this.onClickQuery} className="weui_btn weui_btn_warn">退出登录</a>
-            <div className="weui_dialog_confirm" id="dialog1" style={{display: 'none'}}>
+    return <div className="weui_tab_bd">
+            <div className="titlebar">
+              <p className="titlebar_title">个人中心</p>
+            </div>
+            <div id="user_bd">
+              <QueueAnim type="scaleBig">
+              <div id="user_photo_bg" key="user_photo_bg">
+                <div id="user_photo">
+                </div>
+              </div>
+              </QueueAnim>
+              <p id="user_name">鲍嘉捷</p>
+            </div>
+            <div className="info_panel">
+              <div className="info_panel_title">基本信息</div>
+              <div className="info_panel_content">
+                <p className="info_pannel_content_key">单位</p>
+                <p className="info_pannel_content_value">上海市第三监所</p>
+              </div>
+              <div className="info_panel_content">
+                <p className="info_pannel_content_key">部门</p>
+                <p className="info_pannel_content_value">指挥中心</p>
+              </div>
+              <div className="info_panel_content">
+                <p className="info_pannel_content_key">警号</p>
+                <p className="info_pannel_content_value">6742</p>
+              </div>
+              <div className="info_panel_content">
+                <p className="info_pannel_content_key">手机</p>
+                <p className="info_pannel_content_value">15026489683</p>
+                <Icon className="info_pannel_content_last" type="edit" />
+              </div>
+            </div>
+            <a href="javascript:;" id="logoutbtn" onClick={this.onClickQuery} className="weui_btn weui_btn_warn">退出登录</a>
+            <div className="weui_dialog_confirm" id="querylogout" style={{display: 'none'}}>
                 <div className="weui_mask"></div>
                 <div className="weui_dialog">
                     <div className="weui_dialog_hd"><strong className="weui_dialog_title">提示</strong></div>

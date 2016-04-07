@@ -8,8 +8,10 @@ class Message extends Component {
         fontSize: '14vh',
         marginTop: '50%'
     }
-    return <div style={{backgroundColor:'green'}} className="weui_tab_bd">
-            <p style={style}>消息</p>
+    return <div className="weui_tab_bd">
+              <div className="titlebar">
+                <p className="titlebar_title">消息中心</p>
+              </div>
            </div>;
   }
 }

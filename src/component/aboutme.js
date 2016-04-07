@@ -31,23 +31,30 @@ class Aboutme extends Component {
               <p id="user_name">鲍嘉捷</p>
             </div>
             <div className="info_panel">
-              <div className="info_panel_title">基本信息</div>
               <div className="info_panel_content">
                 <p className="info_pannel_content_key">单位</p>
-                <p className="info_pannel_content_value">上海市第三监所</p>
+                <p className="info_pannel_content_value">上海市第三看守所</p>
               </div>
+              <div className="panel_line"></div>
               <div className="info_panel_content">
                 <p className="info_pannel_content_key">部门</p>
                 <p className="info_pannel_content_value">指挥中心</p>
               </div>
+              <div className="panel_line"></div>
               <div className="info_panel_content">
                 <p className="info_pannel_content_key">警号</p>
                 <p className="info_pannel_content_value">6742</p>
               </div>
+              <div className="panel_line"></div>
               <div className="info_panel_content">
                 <p className="info_pannel_content_key">手机</p>
                 <p className="info_pannel_content_value">15026489683</p>
-                <Icon className="info_pannel_content_last" type="edit" />
+              </div>
+            </div>
+            <div className="info_panel">
+              <div className="info_panel_content">
+                <p className="info_pannel_content_key">设置</p>
+                <Icon className="info_pannel_content_last" type="setting" />
               </div>
             </div>
             <a href="javascript:;" id="logoutbtn" onClick={this.onClickQuery} className="weui_btn weui_btn_warn">退出登录</a>

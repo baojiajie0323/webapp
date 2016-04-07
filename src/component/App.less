@@ -19,21 +19,42 @@ a:hover {
 }
 
 .weui_tabbar_item{
-    color: rgb(125,127,137);
+    color: rgb(255,255,255);
     background-color: rgb(42,55,79);
+    padding: 11px 0 0;
 }
-
+.weui_bar_item_on{
+  background: rgb(55,75,111);
+}
 .weui_bar_item_on .weui_tabbar_icon{
-  color:rgb(6,146,144);
+  color: rgb(255,255,255);
+}
+.weui_tabbar_label{
+  font-size: 14px;
+  color: rgb(255,255,255);
+}
+.weui_tabbar_icon + .weui_tabbar_label {
+   margin-top: -3px;
+}
+.weui_tabbar_item.weui_bar_item_on .weui_tabbar_label {
+  color: rgb(255,255,255);
 }
 
-.weui_tabbar_item.weui_bar_item_on .weui_tabbar_label {
-  color: rgb(6,146,144);
+.weui_tabbar_item.weui_bar_item_on .weui_tabbar_icon {
+  color: rgb(255,255,255);
+}
+
+.weui_tab_bd{
+  background-color: rgb(235,235,235);
+}
+
+.weui_tabbar{
+  height: 55px;
 }
 
 .anticon{
-  font-size: 22px;
-  margin: 1px 1px 0;
+  font-size: 20px;
+  margin: 1px 2px 0;
 }
 
 .weui_btn_primary {
@@ -103,7 +124,7 @@ a:hover {
 #logo{
   width: 120px;
   height: 148px;
-  width: 141px;
+  width: 138px;
   height: 175px;
   background-image: url('../img/logo.png');
   background-size: contain;
@@ -131,33 +152,33 @@ a:hover {
   text-align: left;
   line-height: 45px;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 #user_bd{
   position: relative;
-  margin-top:1px;
   height: 210px;
   width: 100%;
-  background-color: rgb(40,53,78);
+  background-color: rgb(55,75,111);
+  margin-bottom: 0px;
 }
 
 #user_photo_bg{
   position: absolute;
-  height: 128px;
-  width: 128px;
-  margin: 25px auto 0px;
+  height: 132px;
+  width: 132px;
+  margin: 20px auto 0px;
   left: 0;
   right: 0;
-  border-radius: 64px;
-  background-color: white;
+  border-radius: 66px;
+  background-color: rgb(42,55,79);
 }
 
 #user_photo{
   position: absolute;
   height: 124px;
   width: 124px;
-  margin: 2px auto;
+  margin: 4px auto;
   left: 0;
   right: 0;
   border-radius: 62px;
@@ -169,12 +190,16 @@ a:hover {
 
 #user_name{
   position: absolute;
-  /* top: 10px; */
-  bottom: 5px;
+  bottom: 14px;
   text-align: center;
   width: 100%;
   color: white;
-  font-size: 27px;
+  font-size: 23px;
+}
+
+.info_panel{
+  background-color: rgb(255,255,255);
+  margin-bottom: 10px;
 }
 
 .info_panel_title{
@@ -190,31 +215,47 @@ a:hover {
   height: 45px;
   line-height: 45px;
   font-size: 15px;
-  background-color: rgb(255,255,255);
   display: flex;
+  background: rgb(255,255,255);
+}
+//
+// .info_panel_content:hover{
+//   background: rgb(217,217,217);
+// }
+.info_panel_content:active{
+  background: rgb(217,217,217);
 }
 
 .info_pannel_content_key{
-  color:rgb(154,154,156);
-  background-color: rgb(239,239,239);
-  width: 70px;
-  text-align: center;
+  color: #374b6f;
+  margin-left: 5%;
 }
 
 .info_pannel_content_value{
-  color:rgb(10,10,10);
-  //background-color: rgb(10,10,10);
-  margin-left: 30px;
-  //text-align: center;
+  color: #374b6f;
+  position: absolute;
+  right: 5%;
 }
 
 .info_pannel_content_last{
-  right: 11px;
+  right: 5%;
   position: absolute;
-  margin-top: 11px;
-  color: rgb(154, 154, 156);
+  margin-top: 15px;
+  color: #374b6f;
+  font-size: 14px;
+}
+
+.panel_line{
+  width: 90%;
+  height: 1px;
+  background-color: #d9d9d9;
+  margin-left: 5%;
 }
 
 #logoutbtn{
-  margin-top: 30px;
+  position: absolute;
+  width: 90%;
+  left: 5%;
+  bottom: 65px;
+  border-radius: 0;
 }

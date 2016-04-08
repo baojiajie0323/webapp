@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Icon} from 'antd';
+import {Icon,Badge} from 'antd';
 
 class Footbar extends Component {
   render() {
@@ -22,7 +22,9 @@ class Footbar extends Component {
                 <a href="javascript:;" onClick={function(){_this2.props.onsel(3)}}
                  className={this.props.tabindex == 3?"weui_tabbar_item weui_bar_item_on":"weui_tabbar_item"} >
                     <div className="weui_tabbar_icon">
-                        <Icon type="message" />
+                        <Badge dot>
+                          <Icon type="message" />
+                        </Badge>
                     </div>
                     <p className="weui_tabbar_label">消息</p>
                 </a>

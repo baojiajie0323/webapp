@@ -136,15 +136,7 @@ a:hover {
   height: 45px;
   width: 100%;
   background-color: rgb(42,55,79);
-}
-
-.titlebar:after{
-  content: " ";
-  position: absolute;
-  height: 1px;
-  width: 100%;
-  //background-color: rgb(0,0,0);
-  border-top: 1px solid rgba(0, 0, 0, 0.9);
+  position: relative;
 }
 
 .titlebar_title{
@@ -153,6 +145,21 @@ a:hover {
   line-height: 45px;
   color: white;
   font-size: 18px;
+}
+
+.titlebar_iconpanel{
+  position: absolute;
+  width: 60px;
+  right: 0px;
+  top:0px;
+  bottom: 0px;
+  text-align: center;
+  color:white;
+  line-height: 50px;
+}
+
+.titlebar_iconpanel:active{
+  background-color: rgb(55,75,111);
 }
 
 #user_bd{
@@ -227,7 +234,7 @@ a:hover {
 }
 
 .info_pannel_content_key{
-  color: #374b6f;
+  color: #6A7FA5;
   margin-left: 5%;
 }
 
@@ -327,7 +334,7 @@ a:hover {
   margin-left: 5%;
   margin-top: 15px;
   line-height: 40px;
-  font-size: 25px;
+  font-size: 22px;
 }
 
 .li_time{
@@ -356,4 +363,34 @@ a:hover {
 
 .li_title_state{
   font-size: 15px;
+}
+
+#dutycount{
+  height: 80px;
+width: 200px;
+margin: 50px auto;
+text-align: center;
+/* font-family: Helvetica; */
+font-size: 100px;
+/* font-weight: lighter; */
+color: black;
+}
+
+#numberpanel{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.number_each{
+  width: 19%;
+  margin: 0 3%;
+  height: 100%;
+  position: relative;
+}
+.number_each_show{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }

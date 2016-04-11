@@ -17,6 +17,7 @@ var _dutymsg = [];
 var VssStore = assign({}, EventEmitter.prototype, {
   notifytype:{
     loginstate:1,
+    msgchange:2,
   },
 
   setloginsuccess: function(blogin){
@@ -26,6 +27,28 @@ var VssStore = assign({}, EventEmitter.prototype, {
 
   getloginsuccess: function(){
     return _loginsuccess;
+  },
+
+  adddevicemsg: function(msg){
+    _devicemsg.push(msg);
+    this.emitChange(this.notifytype.msgchange);
+  },
+  addsysmsg: function(msg){
+    _systemmsg.push(msg);
+    this.emitChange(this.notifytype.msgchange);
+  },
+  adddutymsg: function(msg){
+    _dutymsg.push(msg);
+    this.emitChange(this.notifytype.msgchange);
+  },
+  getdevicemsg: function(){
+    return _devicemsg;
+  },
+  getsysmsg: function(){
+    return _systemmsg;
+  },
+  getdutymsg: function(){
+    return _dutymsg;
   },
 
   emitChange: function(eventtype) {

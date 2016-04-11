@@ -8,6 +8,9 @@ var ActionEvent = EventConst.ActionEvent;
 var StoreEvent = EventConst.StoreEvent;
 
 var _loginsuccess = false;
+var _devicemsg = [];
+var _systemmsg = [];
+var _dutymsg = [];
 /**
  * store
  */

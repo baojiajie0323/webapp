@@ -1,11 +1,131 @@
 import React, { Component } from 'react';
 import './App.less';
 
-import {Icon } from 'antd';
-const NumberShow = require('./numbershow');
+import {Icon,Carousel  } from 'antd';
+
+const echarts = require('echarts');
 
 const prisonCount = 8;
 class Duty extends Component {
+  componentDidMount(){
+    var prisonChart = echarts.init(document.getElementById('prisoncharts'));
+    //var countChart = echarts.init(document.getElementById('countcharts'));
+    // 绘制图表.
+    var prisonoption = {
+      tooltip : {
+        showContent:false,
+          trigger: 'axis',
+          triggerOn:'click',
+          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          }
+      },
+      grid: {
+        left: '-11%',
+        right: '0%',
+        bottom: '5%',
+        height: '100%',
+        containLabel: true
+      },
+      xAxis : [
+          {
+              splitLine:false,
+              axisLine:{
+                  show:false
+              },
+              axisTick:{
+                show:false
+              },
+              type : 'category',
+              data : ['一监','二监','三监','四监','五监','六监','七监','八监','九监','十监']
+          }
+      ],
+      yAxis : [
+          {
+              splitLine:false,
+              axisLine:{
+                  show:false
+              },
+              axisTick:{
+                show:false
+              },
+              axisLabel:{
+                show:false
+              },
+              type : 'value'
+          }
+      ],
+      color:['#4fd2c1','#faaa53', '#b973ff', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+      series : [
+          {
+              barWidth:8,
+              name:'普通在监',
+              type:'bar',
+              stack: '人数统计',
+              data:[120, 132, 101, 134, 90, 230, 210, 90, 230, 210]
+          },
+          {
+              name:'劳动',
+              type:'bar',
+              stack: '人数统计',
+              data:[220, 182, 191, 234, 290, 330, 310, 90, 230, 210]
+          },
+          {
+              name:'就医',
+              type:'bar',
+              stack: '人数统计',
+              data:[150, 232, 201, 154, 190, 330, 410, 90, 230, 210]
+          },
+      ]
+    };
+    var countoption = {
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+        },
+        series: [
+            {
+                name:'访问来源',
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:335, name:'直接访问'},
+                    {value:310, name:'邮件营销'},
+                    {value:234, name:'联盟广告'},
+                    {value:135, name:'视频广告'},
+                    {value:1548, name:'搜索引擎'}
+                ]
+            }
+        ]
+      }
+
+    prisonChart.setOption(prisonoption);
+    //countChart.setOption(countoption);
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -19,15 +139,15 @@ class Duty extends Component {
     var _this = this;
   }
   onClickQuery(){
-    var count = this.state.count;
-    this.setcount(count + 1000);
+    //var count = this.state.count;
+    //this.setcount(count + 1000);
     //this.setState({count:count + 300});
-    // navigator.vibrate([200, 200, 200]);
-    // var $dialog = $('#querycall');
-    // $dialog.show();
-    // $dialog.find('.weui_btn_dialog').one('click', function () {
-    //                     $dialog.hide();
-    // });
+    navigator.vibrate([200, 200, 200]);
+    var $dialog = $('#querycall');
+    $dialog.show();
+    $dialog.find('.weui_btn_dialog').one('click', function () {
+                        $dialog.hide();
+    });
   }
   setcount(newcount){
     var count = this.state.count;
@@ -58,7 +178,9 @@ class Duty extends Component {
         _this.setcount(newcount);
       },time)
     }
-
+  }
+  onChange(a, b, c) {
+    console.log(a, b, c);
   }
   render() {
     return <div className="weui_tab_bd">
@@ -69,7 +191,17 @@ class Duty extends Component {
               </div>
             </div>
             <div id="dutycount">
-            {this.state.count}
+              <p>1527</p>
+              <p>已更新3分钟 / 正在更新 </p>
+              <p>距离下次总动点名还有 47分钟 </p>
+            </div>
+            <div id="prisoncharts">
+            </div>
+            <div id="carousel">
+              <Carousel afterChange={this.onChange}>
+                <div><h3>1</h3></div>
+                <div><h3>2</h3></div>
+              </Carousel>
             </div>
             <div className="weui_dialog_confirm" id="querycall" style={{display: 'none'}}>
                 <div className="weui_mask"></div>

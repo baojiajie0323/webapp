@@ -32,10 +32,25 @@ class Message extends Component {
     });
   }
   initscroll(){
-    var deviceScroll = new IScroll('#device_wrapper', { mouseWheel: true ,tap: true});
-    var systemScroll = new IScroll('#system_wrapper', { mouseWheel: true ,tap: true});
-    var dutyScroll = new IScroll('#duty_wrapper', { mouseWheel: true ,tap: true});
+    if(document.getElementById('device_wrapper') != null){
+        var deviceScroll = new IScroll('#device_wrapper', { mouseWheel: true ,tap: true});
+    }
+    if(document.getElementById('system_wrapper') != null){
+        var deviceScroll = new IScroll('#system_wrapper', { mouseWheel: true ,tap: true});
+    }
+    if(document.getElementById('duty_wrapper') != null){
+        var deviceScroll = new IScroll('#duty_wrapper', { mouseWheel: true ,tap: true});
+    }
     document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    var lilist = document.getElementsByClassName('li_device');
+    for (var i = 0; i < lilist.length; i++) {
+      lilist[i].addEventListener('touchstart', function () {
+  		    this.style.background = 'rgb(217,217,217)';
+  	   }, false);
+      lilist[i].addEventListener('touchend', function () {
+   		    this.style.background = '';
+   	   }, false);
+    }
   }
   callback(key) {
     this.setState({

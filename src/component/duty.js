@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import './App.less';
 
-import {Icon,Carousel  } from 'antd';
+import {Icon,Progress  } from 'antd';
+const ProgressLine = Progress.Line;
 
 const echarts = require('echarts');
 
 const prisonCount = 8;
 class Duty extends Component {
   componentDidMount(){
-    var prisonChart = echarts.init(document.getElementById('prisoncharts'));
-    //var countChart = echarts.init(document.getElementById('countcharts'));
+    //var prisonChart = echarts.init(document.getElementById('prisoncharts'));
+    var countChart = echarts.init(document.getElementById('piechart'));
     // 绘制图表.
     var prisonoption = {
       tooltip : {
@@ -83,24 +84,20 @@ class Duty extends Component {
           trigger: 'item',
           formatter: "{a} <br/>{b}: {c} ({d}%)"
         },
-        legend: {
-            orient: 'vertical',
-            x: 'left',
-            data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-        },
+        color:['rgb(238,69,40)','rgb(250,189,122)', 'rgb(3,164,169)', 'rgb(243,154,19)', 'rgb(124,17,20)','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
         series: [
             {
-                name:'访问来源',
+                name:'在押人员',
                 type:'pie',
-                radius: ['50%', '70%'],
-                avoidLabelOverlap: false,
+                radius: ['73%', '94%'],
+                hoverAnimation :false,
                 label: {
                     normal: {
                         show: false,
                         position: 'center'
                     },
                     emphasis: {
-                        show: true,
+                        show: false,
                         textStyle: {
                             fontSize: '30',
                             fontWeight: 'bold'
@@ -113,18 +110,18 @@ class Duty extends Component {
                     }
                 },
                 data:[
-                    {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'},
-                    {value:234, name:'联盟广告'},
-                    {value:135, name:'视频广告'},
-                    {value:1548, name:'搜索引擎'}
+                    {value:535, name:'家属会见'},
+                    {value:310, name:'警察外带'},
+                    {value:234, name:'狱内就医'},
+                    {value:135, name:'提回重审'},
+                    {value:948, name:'在管留仓'}
                 ]
             }
         ]
       }
 
-    prisonChart.setOption(prisonoption);
-    //countChart.setOption(countoption);
+    //prisonChart.setOption(prisonoption);
+    countChart.setOption(countoption);
   }
   constructor(props) {
     super(props);
@@ -190,18 +187,16 @@ class Duty extends Component {
                 <Icon type="calendar" />
               </div>
             </div>
-            <div id="dutycount">
-              <p>1527</p>
-              <p>已更新3分钟 / 正在更新 </p>
-              <p>距离下次总动点名还有 47分钟 </p>
-            </div>
-            <div id="prisoncharts">
+            <div id="dutycharts">
+              <div id="chartspanel_out"></div>
+              <div id="chartspanel_in"></div>
+              <div id="piechart"></div>
+              <p id="prisonsubtitle">已更新40分钟</p>
+              <p id="prisontitle">在押人数</p>
+              <p id="prisoncount">7,658</p>
             </div>
             <div id="carousel">
-              <Carousel afterChange={this.onChange}>
-                <div><h3>1</h3></div>
-                <div><h3>2</h3></div>
-              </Carousel>
+
             </div>
             <div className="weui_dialog_confirm" id="querycall" style={{display: 'none'}}>
                 <div className="weui_mask"></div>

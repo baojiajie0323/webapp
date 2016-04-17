@@ -3,8 +3,34 @@ import {QueueAnim,Icon } from 'antd';
 import './App.less';
 
 const Store = require('../flux/stores/vssStore');
+const Setting = require('./setting');
+const Modifyphone = require('./modifyphone');
 
 class Aboutme extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showsetting:false,
+      showmodifyphone:false,
+    };
+    this.onClickSetting = this.onClickSetting.bind(this);
+    this.onClickReturnSetting = this.onClickReturnSetting.bind(this);
+
+    this.onClickModifyphone = this.onClickModifyphone.bind(this);
+    this.onClickReturnModifyphone = this.onClickReturnModifyphone.bind(this);
+  }
+  onClickSetting(){
+    this.setState({showsetting:true});
+  }
+  onClickReturnSetting(){
+    this.setState({showsetting:false});
+  }
+  onClickModifyphone(){
+    this.setState({showmodifyphone:true});
+  }
+  onClickReturnModifyphone(){
+    this.setState({showmodifyphone:false});
+  }
   onClickLogout(){
     Store.setloginsuccess(false);
   }
@@ -17,6 +43,12 @@ class Aboutme extends Component {
     });
   }
   render() {
+    var subpage = null;
+    if(this.state.showsetting){
+      subpage = <Setting key="setting" returnfun={this.onClickReturnSetting}/>;
+    }else if(this.state.showmodifyphone){
+      subpage = <Modifyphone key="modifyphone" returnfun={this.onClickReturnModifyphone}/>;
+    }
     return <div className="weui_tab_bd">
             <div className="titlebar">
               <p className="titlebar_title">个人中心</p>
@@ -46,13 +78,13 @@ class Aboutme extends Component {
                 <p className="info_pannel_content_value">6742</p>
               </div>
               <div className="panel_line"></div>
-              <div className="info_panel_content">
+              <div onClick={this.onClickModifyphone} className="info_panel_content info_panel_content_active">
                 <p className="info_pannel_content_key">手机</p>
                 <p className="info_pannel_content_value">15026489683</p>
               </div>
             </div>
             <div className="info_panel">
-              <div className="info_panel_content">
+              <div onClick={this.onClickSetting} className="info_panel_content info_panel_content_active">
                 <p className="info_pannel_content_key">设置</p>
                 <Icon className="info_pannel_content_last" type="setting" />
               </div>
@@ -69,6 +101,12 @@ class Aboutme extends Component {
                     </div>
                 </div>
             </div>
+            <QueueAnim className="subpage" animConfig={[
+            { opacity: [1, 0], translateX: [0, '100%'] },
+            { opacity: [1, 0], translateX: [0, '100%'] }
+            ]}>
+            {subpage}
+            </QueueAnim>
           </div>;
   }
 }

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import './App.less';
 
 import {Icon,Progress  } from 'antd';
-const ProgressLine = Progress.Line;
+const ProgressCircle = Progress.Circle;
 
 const echarts = require('echarts');
+const Store = require('../flux/stores/vssStore');
+const Action = require('../flux/actions/vssActions');
 
 const prisonCount = 10;
 var currentprisonsel = -1;
@@ -21,56 +23,63 @@ function getprisonCount(index){
 
 class Duty extends Component {
   componentDidMount(){
-    var countChart = echarts.init(document.getElementById('piechart'));
-    // 绘制图表.
-    var countoption = {
-        tooltip: {
-          trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        color:['rgb(238,69,40)','rgb(250,189,122)', 'rgb(3,164,169)', 'rgb(243,154,19)', 'rgb(124,17,20)','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
-        series: [
-            {
-                name:'在押人员',
-                type:'pie',
-                radius: ['73%', '94%'],
-                hoverAnimation :false,
-                label: {
-                    normal: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        show: false,
-                        textStyle: {
-                            fontSize: '30',
-                            fontWeight: 'bold'
-                        }
-                    }
-                },
-                labelLine: {
-                    normal: {
-                        show: false
-                    }
-                },
-                data:[
-                    {value:535, name:'家属会见'},
-                    {value:310, name:'警察外带'},
-                    {value:234, name:'狱内就医'},
-                    {value:135, name:'提回重审'},
-                    {value:948, name:'在管留仓'}
-                ]
-            }
-        ]
-      }
-
+    this.updatepiecharts();
     this.updatebarcharts();
-    countChart.setOption(countoption);
+    Store.addChangeListener(Store.notifytype.dutychange,this.onDutyChange);
   }
-  updatebarcharts()
-  {
+  updatepiecharts(){
+    var doc = document.getElementById('piechart');
+    if(!doc)
+      return;
+    var countChart = echarts.getInstanceByDom(document.getElementById('piechart'));
+     if(!countChart){
+        countChart = echarts.init(document.getElementById('piechart'));
+     }
+     var countoption = {
+         tooltip: {
+           trigger: 'item',
+           formatter: "{a} <br/>{b}: {c} ({d}%)"
+         },
+         color:['rgb(238,69,40)','rgb(250,189,122)', 'rgb(3,164,169)', 'rgb(243,154,19)', 'rgb(124,17,20)','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+         series: [
+             {
+                 name:'在押人员',
+                 type:'pie',
+                 radius: ['73%', '94%'],
+                 hoverAnimation :false,
+                 label: {
+                     normal: {
+                         show: false,
+                         position: 'center'
+                     },
+                     emphasis: {
+                         show: false,
+                         textStyle: {
+                             fontSize: '30',
+                             fontWeight: 'bold'
+                         }
+                     }
+                 },
+                 labelLine: {
+                     normal: {
+                         show: false
+                     }
+                 },
+                 data:[
+                     {value:Store.getAllPrionserCount('jshj'), name:'家属会见'},
+                     {value:Store.getAllPrionserCount('jcwd'), name:'警察外带'},
+                     {value:Store.getAllPrionserCount('ynjy'), name:'狱内就医'},
+                     {value:Store.getAllPrionserCount('thcs'), name:'提回重审'},
+                     {value:Store.getAllPrionserCount('zglc'), name:'在管留仓'}
+                 ]
+             }
+         ]
+       }
+     countChart.setOption(countoption);
+  }
+  updatebarcharts(){
     var _this = this;
-     var prisonChart = echarts.getInstanceByDom(document.getElementById('barchart'));
+    var prisonChart = echarts.getInstanceByDom(document.getElementById('barchart'));
      if(!prisonChart){
         prisonChart = echarts.init(document.getElementById('barchart'));
         prisonChart.on('click', function (params) {
@@ -197,24 +206,29 @@ class Duty extends Component {
     this.state = {
       percent: 0,
       count:0,
-      showdutyinfo:false
+      showdutyinfo:false,
+      dutyinfo:Store.getdutyinfo(),
     };
     this.onClickCall = this.onClickCall.bind(this);
     this.onClickQuery = this.onClickQuery.bind(this);
+    this.onDutyChange = this.onDutyChange.bind(this);
+  }
+  onDutyChange(){
+    this.setState({dutyinfo:Store.getdutyinfo()});
+
   }
   onClickCall(){
-    this.setState({showdutyinfo:true});
+    Store.cleardutyinfo();
+    Action.testCall();
   }
   onClickQuery(){
 
-    this.setState({showdutyinfo:!this.state.showdutyinfo});
-
-    // navigator.vibrate([200, 200, 200]);
-    // var $dialog = $('#querycall');
-    // $dialog.show();
-    // $dialog.find('.weui_btn_dialog').one('click', function () {
-    //                     $dialog.hide();
-    // });
+    //this.setState({showdutyinfo:!this.state.showdutyinfo});
+     var $dialog = $('#querycall');
+     $dialog.show();
+     $dialog.find('.weui_btn_dialog').one('click', function () {
+                         $dialog.hide();
+     });
   }
   setcount(newcount){
     var count = this.state.count;
@@ -246,7 +260,20 @@ class Duty extends Component {
       },time)
     }
   }
+  isCalling(){
+    return this.state.dutyinfo.length < prisonCount;
+  }
   render() {
+    this.updatepiecharts();
+    var bCalling = this.isCalling();
+
+    var subtitletext = "";
+    if(bCalling){
+      subtitletext = "正在更新 " + this.state.dutyinfo.length + '/10';
+    }else{
+      subtitletext = "已更新1分钟";
+    }
+
     var marginTop = '0';
     var rotateY = 'rotateY(-90deg) skewY(-10deg)';
     if(this.state.showdutyinfo){
@@ -262,34 +289,35 @@ class Duty extends Component {
             </div>
             <div id="dutycharts" style={{marginTop:marginTop}}>
               <div id="chartspanel_out"></div>
-              <div id="chartspanel_in"></div>
+              <div id="chartspanel_in">
+              </div>
               <div id="piechart"></div>
-              <p id="prisonsubtitle">已更新40分钟</p>
+              <p id="prisonsubtitle">{subtitletext}</p>
               <p id="prisontitle">在押人数</p>
-              <p id="prisoncount">7,658</p>
+              <p id="prisoncount">{Store.getAllPrionserCount(-1)}</p>
               <div id="typeaccountpanel">
                 <div className="typeaccount">
-                  <p className="typeaccount_count">535</p>
+                  <p className="typeaccount_count">{Store.getAllPrionserCount('jshj')}</p>
                   <p className="typeaccount_name">家属会见</p>
                   <div className="typeaccount_color color1"></div>
                 </div>
                 <div className="typeaccount">
-                  <p className="typeaccount_count">310</p>
+                  <p className="typeaccount_count">{Store.getAllPrionserCount('jcwd')}</p>
                   <p className="typeaccount_name">警察外带</p>
                   <div className="typeaccount_color color2"></div>
                 </div>
                 <div className="typeaccount">
-                  <p className="typeaccount_count">234</p>
+                  <p className="typeaccount_count">{Store.getAllPrionserCount('ynjy')}</p>
                   <p className="typeaccount_name">狱内就医</p>
                   <div className="typeaccount_color color3"></div>
                 </div>
                 <div className="typeaccount">
-                  <p className="typeaccount_count">135</p>
+                  <p className="typeaccount_count">{Store.getAllPrionserCount('thcs')}</p>
                   <p className="typeaccount_name">提回重审</p>
                   <div className="typeaccount_color color4"></div>
                 </div>
                 <div className="typeaccount">
-                  <p className="typeaccount_count">948</p>
+                  <p className="typeaccount_count">{Store.getAllPrionserCount('zglc')}</p>
                   <p className="typeaccount_name">在管留仓</p>
                   <div className="typeaccount_color color5"></div>
                 </div>

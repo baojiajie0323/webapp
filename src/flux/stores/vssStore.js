@@ -11,13 +11,49 @@ var _loginsuccess = false;
 var _devicemsg = [];
 var _systemmsg = [];
 var _dutymsg = [];
+
+var _dutyinfo = [];
 /**
  * store
  */
+
+function formatNum(str){
+  var newStr = "";
+  var count = 0;
+
+  if(str.indexOf(".")==-1){
+     for(var i=str.length-1;i>=0;i--){
+   if(count % 3 == 0 && count != 0){
+     newStr = str.charAt(i) + "," + newStr;
+   }else{
+     newStr = str.charAt(i) + newStr;
+   }
+   count++;
+     }
+     str = newStr; //自动补小数点后两位
+     console.log(str)
+  }
+  else
+  {
+     for(var i = str.indexOf(".")-1;i>=0;i--){
+   if(count % 3 == 0 && count != 0){
+     newStr = str.charAt(i) + "," + newStr;
+   }else{
+     newStr = str.charAt(i) + newStr; //逐个字符相接起来
+   }
+   count++;
+     }
+     str = newStr + (str + "00").substr((str + "00").indexOf("."),3);
+     console.log(str)
+   }
+   return str;
+}
+
 var VssStore = assign({}, EventEmitter.prototype, {
   notifytype:{
     loginstate:1,
     msgchange:2,
+    dutychange:3,
   },
 
   setloginsuccess: function(blogin){
@@ -49,6 +85,48 @@ var VssStore = assign({}, EventEmitter.prototype, {
   },
   getdutymsg: function(){
     return _dutymsg;
+  },
+
+  getdutyinfo:function(){
+    return _dutyinfo;
+  },
+
+  cleardutyinfo:function(){
+    _dutyinfo = [];
+    this.emitChange(this.notifytype.dutychange);
+  },
+
+  updatedutyinfo:function(info){
+    for (var i = 0; i < _dutyinfo.length; i++) {
+      if(_dutyinfo[i].index == info.index){
+        _dutyinfo[i] = info;
+        this.emitChange(this.notifytype.dutychange);
+        return;
+      }
+    }
+    _dutyinfo.push(info);
+    this.emitChange(this.notifytype.dutychange);
+  },
+  getAllPrionserCount:function(type){
+    var nCount = 0;
+    for (var i = 0; i < _dutyinfo.length; i++) {
+      if(type == -1 || type == "zglc"){
+        nCount += _dutyinfo[i].prisonercount.zglc;
+      }if(type == -1 || type == "jcwd"){
+        nCount += _dutyinfo[i].prisonercount.jcwd;
+      }if(type == -1 || type == "ynjy"){
+        nCount += _dutyinfo[i].prisonercount.ynjy;
+      }if(type == -1 || type == "jshj"){
+        nCount += _dutyinfo[i].prisonercount.jshj;
+      }if(type == -1 || type == "thcs"){
+        nCount += _dutyinfo[i].prisonercount.thcs;
+      }
+    }
+    if(type == -1){
+      var strnumber = nCount.toString();
+      return formatNum(strnumber);
+    }
+    return nCount;
   },
 
   emitChange: function(eventtype) {

@@ -96,7 +96,7 @@ class Aboutme extends Component {
                     <div className="weui_dialog_hd"><strong className="weui_dialog_title">提示</strong></div>
                     <div className="weui_dialog_bd">您确定要退出登录吗？</div>
                     <div className="weui_dialog_ft">
-                        <a href="javascript:;" className="weui_btn_dialog default">取消</a>
+                        <a href="tel:15026489683" className="weui_btn_dialog default">取消</a>
                         <a href="javascript:;" onClick={this.onClickLogout} className="weui_btn_dialog primary">确定</a>
                     </div>
                 </div>

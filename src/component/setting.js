@@ -19,6 +19,9 @@ class Setting extends Component {
     this.onClickservicealarm = this.onClickservicealarm.bind(this);
     this.onClickdutytimeout = this.onClickdutytimeout.bind(this);
   }
+  componentDidMount(){
+    Store.addChangeListener(Store.notifytype.backbutton,this.onClickReturn);
+  }
   onClickReturn(){
     this.props.returnfun();
   }

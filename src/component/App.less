@@ -208,7 +208,7 @@ a:hover {
   bottom: 24%;
   width: 1px;
   margin-left: 5px;
-  background: #BCBCDA;
+  background: #1D2128;;
 }
 
 .weui_switch{
@@ -397,12 +397,33 @@ a:hover {
 	-webkit-text-size-adjust: none;
 }
 
+.scroller_hor {
+	position: absolute;
+	z-index: 1;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+	height: 100%;
+	-webkit-transform: translateZ(0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-webkit-text-size-adjust: none;
+}
+
+.scroller_hor ul{
+	list-style: none;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+  display: flex;
+}
+
 .scroller ul {
 	list-style: none;
 	width: 100%;
 	height: 100%;
 	text-align: center;
 }
+
+
 
 .li_icon{
   position: absolute;
@@ -457,13 +478,22 @@ a:hover {
 
 #dutycharts{
   position: relative;
-  height: 405px;
+  height: 415px;
   text-align: center;
   font-size: 26px;
   color: black;
   background-color: rgb(31,47,62);
   transition: margin 0.8s ease;
   z-index: 3;
+}
+
+#dutycharts_mask{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color:  rgba(0, 226, 255, 0.1);
+  z-index: 4;
+  transition: width 0.5s ease;
 }
 
 #piechart{
@@ -473,6 +503,7 @@ a:hover {
   right: 0;
   width: 280px;
   height: 280px;
+  z-index: 5;
 }
 
 #chartspanel_out{
@@ -505,6 +536,7 @@ a:hover {
   color: #E9E9E9;
   font-size: 19px;
   top: 83px;
+  z-index: 5;
 }
 
 #prisonsubtitle{
@@ -514,6 +546,7 @@ a:hover {
   color: #888;
   font-size: 15px;
   top: 210px;
+  z-index: 5;
 }
 
 #prisoncount{
@@ -526,13 +559,14 @@ a:hover {
   height: 90px;
   line-height: 90px;
   transform: scale(0.8,1);
+  z-index: 5;
 }
 
 #carousel{
   background-color: rgb(237,237,237);
   position: absolute;
   width: 100%;
-  top:450px;
+  top:460px;
   bottom:55px;
 }
 
@@ -548,13 +582,14 @@ a:hover {
   height: 100px;
   width: 100%;
   display: flex;
+  z-index: 5;
 }
 
 #dutyinfopanel{
   position: absolute;
   width: 200%;
   height: 150px;
-  top: 300px;
+  top: 310px;
   left: -100%;
   transition: transform 0.8s ease;
   z-index: 2;
@@ -571,6 +606,13 @@ a:hover {
   background-color: rgb(55, 75, 111);
   color: white;
     line-height: 145px;
+}
+
+.li_prison{
+  width: 100px;
+  height: 100%;
+  border-right: 1px solid #ccc;
+  background-color: #fafafa;
 }
 
 .typeaccount{
@@ -618,3 +660,10 @@ a:hover {
 .color3{  background-color: rgb(3,164,169);}
 .color4{  background-color: rgb(243,154,19);}
 .color5{  background-color: rgb(124,17,20);}
+
+.weui_actionsheet{
+  z-index: 12;
+}
+#mask{
+  z-index: 11;
+}

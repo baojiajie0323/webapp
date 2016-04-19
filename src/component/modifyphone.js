@@ -10,6 +10,9 @@ class ModifyPhone extends Component {
     this.onClickReturn = this.onClickReturn.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
   }
+  componentDidMount(){
+    Store.addChangeListener(Store.notifytype.backbutton,this.onClickReturn);
+  }
   onClickReturn(){
     this.props.returnfun();
   }

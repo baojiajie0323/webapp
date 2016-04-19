@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.less';
-import { Tabs,Badge } from 'antd';
+import { Tabs,Badge,QueueAnim } from 'antd';
 const TabPane = Tabs.TabPane;
 const IScroll = require('./iscroll.js');
 const Store = require('../flux/stores/vssStore');
@@ -58,10 +58,10 @@ class Message extends Component {
       systemmsg:Store.getsysmsg(),
       dutymsg:Store.getdutymsg(),
     });
-    if(key == "2"){
-      var systemScroll = new IScroll('#system_wrapper', { mouseWheel: true ,tap: true});
-      document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-    }
+    // if(key == "2"){
+    //   var systemScroll = new IScroll('#system_wrapper', { mouseWheel: true ,tap: true});
+    //   document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    // }
     //this.initscroll();
     //console.log(key);
   }
@@ -76,11 +76,11 @@ class Message extends Component {
 
     for (var i = 0; i < this.state.devicemsg.length; i++) {
       var msg = this.state.devicemsg[i];
-      var linediv = <div className="panel_line"></div>;
+      var linediv = <div className="panel_line" key={msg.id + '_line'}></div>;
       if(devicelist.length > 0){
         devicelist.push(linediv);
       }
-      var msgdiv = <li className="li_device">
+      var msgdiv = <li className="li_device" key={msg.id}>
         <div style={{backgroundColor:'#d38a79'}} className="li_icon">{msg.iconname}</div>
         <div className="li_time">{msg.time}</div>
         <div className="li_type">{msg.type}</div>
@@ -92,11 +92,11 @@ class Message extends Component {
 
     for (var i = 0; i < this.state.systemmsg.length; i++) {
       var msg = this.state.systemmsg[i];
-      var linediv = <div className="panel_line"></div>;
+      var linediv = <div className="panel_line" key={msg.id + '_line'}></div>;
       if(syslist.length > 0){
         syslist.push(linediv);
       }
-      var msgdiv = <li className="li_device">
+      var msgdiv = <li className="li_device" key={msg.id}>
         <div style={{backgroundColor:'rgb(68, 166, 121)'}} className="li_icon">{msg.iconname}</div>
         <div className="li_time">{msg.time}</div>
         <div className="li_type">{msg.type}</div>
@@ -108,11 +108,11 @@ class Message extends Component {
 
     for (var i = 0; i < this.state.dutymsg.length; i++) {
       var msg = this.state.dutymsg[i];
-      var linediv = <div className="panel_line"></div>;
+      var linediv = <div className="panel_line" key={msg.id + '_line'}></div>;
       if(dutylist.length > 0){
         dutylist.push(linediv);
       }
-      var msgdiv = <li className="li_device">
+      var msgdiv = <li className="li_device" key={msg.id}>
         <div style={{backgroundColor:'rgb(25, 95, 148)'}} className="li_icon">{msg.iconname}</div>
         <div className="li_time">{msg.time}</div>
         <div className="li_type">{msg.type}</div>
@@ -130,7 +130,9 @@ class Message extends Component {
                   <div id="device_wrapper" className="wrapper">
                     <div className="scroller">
                       <ul>
+                      <QueueAnim type="bottom" interval="40">
                       {devicelist}
+                      </QueueAnim>
                       </ul>
                     </div>
                   </div>
@@ -139,7 +141,9 @@ class Message extends Component {
                   <div id="system_wrapper" className="wrapper">
                     <div className="scroller">
                       <ul>
+                      <QueueAnim type="bottom" interval="40">
                       {syslist}
+                      </QueueAnim>
                       </ul>
                     </div>
                   </div>
@@ -148,7 +152,9 @@ class Message extends Component {
                   <div id="duty_wrapper" className="wrapper">
                     <div className="scroller">
                       <ul>
+                      <QueueAnim type="bottom" interval="40">
                       {dutylist}
+                      </QueueAnim>
                       </ul>
                     </div>
                   </div>

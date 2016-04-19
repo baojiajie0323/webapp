@@ -51,9 +51,14 @@ function formatNum(str){
 
 var VssStore = assign({}, EventEmitter.prototype, {
   notifytype:{
-    loginstate:1,
-    msgchange:2,
-    dutychange:3,
+    backbutton:1,
+    loginstate:2,
+    msgchange:3,
+    dutychange:4,
+  },
+
+  back(){
+    this.emitChange(this.notifytype.backbutton);
   },
 
   setloginsuccess: function(blogin){

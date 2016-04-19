@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.less';
 
 const Store = require('../flux/stores/vssStore');
-const Action = require('../flux/actions/vssactions');
+const Action = require('../flux/actions/vssActions');
 const Login = require('./login');
 const Footbar = require('./footbar');
 const Operation = require('./operation');
@@ -15,6 +15,7 @@ class App extends Component {
     document.addEventListener('deviceready', this.onDeviceReady, false);
     Store.addChangeListener(Store.notifytype.loginstate,this.onLoginChange);
     Action.testmsg();
+    Action.testCall(true);
   }
   constructor(props) {
     super(props);
@@ -24,21 +25,24 @@ class App extends Component {
     };
     this.onSel = this.onSel.bind(this);
     this.onLoginChange = this.onLoginChange.bind(this);
+    this.onDeviceReady = this.onDeviceReady.bind(this);
   }
   onDeviceReady(){
     //alert('DeviceReady');
      setTimeout(function(){
         navigator.splashscreen.hide();
      },3000);
+     document.addEventListener("backbutton",function(){Store.back()},false);
   }
   onLoginChange(){
     this.setState({
       login:Store.getloginsuccess()
     });
+    if(!this.state.login){
+      this.setState({tabindex:1});
+    }
   }
   onSel(tabindex){
-    //alert(tabindex);
-
     this.setState({tabindex:tabindex});
   }
   render() {

@@ -7,6 +7,7 @@ const ProgressCircle = Progress.Circle;
 const echarts = require('echarts');
 const Store = require('../flux/stores/vssStore');
 const Action = require('../flux/actions/vssActions');
+const IScroll = require('./iscroll.js');
 
 const prisonCount = 10;
 var currentprisonsel = -1;
@@ -22,10 +23,33 @@ function getprisonCount(index){
 }
 
 class Duty extends Component {
+  currentprisonsel:null;
   componentDidMount(){
     this.updatepiecharts();
-    this.updatebarcharts();
+    //this.updatebarcharts();
     Store.addChangeListener(Store.notifytype.dutychange,this.onDutyChange);
+
+    var prisonScroll = new IScroll('#prison_wrapper', { scrollX: true, scrollY: false, mouseWheel: true ,tap: true});
+    document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    var lilist = document.getElementsByClassName('li_prison');
+    var _this = this;
+    for (let i = 0; i < lilist.length; i++) {
+      lilist[i].addEventListener('tap', function (e) {
+          console.log('tap index:',i);
+          if(this != _this.currentprisonsel){
+            if(_this.currentprisonsel != null){
+              _this.currentprisonsel.style.background = '';
+            }
+            _this.currentprisonsel = this;
+            currentprisonsel = i;
+            _this.setState({showdutyinfo:true});
+          }else{
+            _this.setState({showdutyinfo:false});
+            _this.currentprisonsel = null;
+          }
+          this.style.background = !this.style.background ? 'rgb(55,75,111)' : '';
+       }, false);
+    }
   }
   updatepiecharts(){
     var doc = document.getElementById('piechart');
@@ -204,22 +228,29 @@ class Duty extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      percent: 0,
       count:0,
       showdutyinfo:false,
+      curselprison:-1,
       dutyinfo:Store.getdutyinfo(),
     };
     this.onClickCall = this.onClickCall.bind(this);
     this.onClickQuery = this.onClickQuery.bind(this);
     this.onDutyChange = this.onDutyChange.bind(this);
+    this.cancelshowduty = this.cancelshowduty.bind(this);
   }
   onDutyChange(){
     this.setState({dutyinfo:Store.getdutyinfo()});
-
+  }
+  cancelshowduty(){
+    if(this.currentprisonsel != null){
+      this.setState({showdutyinfo:false});
+      this.currentprisonsel.style.background = '';
+      this.currentprisonsel = null;
+    }
   }
   onClickCall(){
     Store.cleardutyinfo();
-    Action.testCall();
+    Action.testCall(false);
   }
   onClickQuery(){
 
@@ -263,6 +294,28 @@ class Duty extends Component {
   isCalling(){
     return this.state.dutyinfo.length < prisonCount;
   }
+  onClickphone(){
+    var mask = $('#mask');
+    var weuiActionsheet = $('#weui_actionsheet');
+    weuiActionsheet.addClass('weui_actionsheet_toggle');
+    mask.show().addClass('weui_fade_toggle').one('click', function () {
+        hideActionSheet(weuiActionsheet, mask);
+    });
+    $('#actionsheet_cancel').one('click', function () {
+      hideActionSheet(weuiActionsheet, mask);
+    });
+    weuiActionsheet.unbind('transitionend').unbind('webkitTransitionEnd');
+
+    function hideActionSheet(weuiActionsheet, mask) {
+      weuiActionsheet.removeClass('weui_actionsheet_toggle');
+      mask.removeClass('weui_fade_toggle');
+      weuiActionsheet.on('transitionend', function () {
+        mask.hide();
+      }).on('webkitTransitionEnd', function () {
+        mask.hide();
+      })
+    }
+  }
   render() {
     this.updatepiecharts();
     var bCalling = this.isCalling();
@@ -276,10 +329,40 @@ class Duty extends Component {
 
     var marginTop = '0';
     var rotateY = 'rotateY(-90deg) skewY(-10deg)';
+
     if(this.state.showdutyinfo){
       marginTop = '-150px';
       rotateY = 'rotateY(0deg) skewY(0deg)';
     }
+
+    var leader = "未提交";
+    var leaderphone = "未提交";
+    var dutyname = "未提交";
+    var actionsheet_tel = "";
+    var actionsheet_sms = "";
+    var href_tel = "";
+    var href_sms = "";
+    if(currentprisonsel >= 0 && currentprisonsel < this.state.dutyinfo.length){
+      leader = this.state.dutyinfo[currentprisonsel].leader.name;
+      leaderphone = this.state.dutyinfo[currentprisonsel].leader.tel;
+      dutyname = this.state.dutyinfo[currentprisonsel].dutyperson.join(" ");
+
+      actionsheet_tel = '给 '+ leader + ' ' + leaderphone + ' 打电话';
+      actionsheet_sms = '给 '+ leader + ' ' + leaderphone + ' 发短信';
+      href_tel = 'tel:' + leaderphone;
+      href_sms = 'sms:' + leaderphone + '?body=' + leader + '：你好，请你及时点名。';
+    }
+
+    var prisonlist = [];
+
+    for (var i = 0; i < prisonCount; i++) {
+      var prisoninfo = this.state.dutyinfo[i];
+      var prisondiv = <li className="li_prison">
+      </li>;
+      prisonlist.push(prisondiv);
+    }
+
+    var percent = this.state.dutyinfo.length*100/prisonCount + '%';
     return <div className="weui_tab_bd" style={{backgroundColor:'black'}}>
             <div className="titlebar">
               <p className="titlebar_title">值班管理</p>
@@ -287,7 +370,8 @@ class Duty extends Component {
                 <Icon type="calendar" />
               </div>
             </div>
-            <div id="dutycharts" style={{marginTop:marginTop}}>
+            <div id="dutycharts" onMouseDown={this.cancelshowduty} style={{marginTop:marginTop}}>
+              <div id="dutycharts_mask" style={{width:percent}}></div>
               <div id="chartspanel_out"></div>
               <div id="chartspanel_in">
               </div>
@@ -325,21 +409,57 @@ class Duty extends Component {
             </div>
             <div id="dutyinfopanel" style={{transform:rotateY}}>
               <div id="dutyinfo">
-                值班信息展示
+                <div className="info_panel">
+                  <div onClick={this.onClickphone} className="info_panel_content info_panel_content_active">
+                    <p className="info_pannel_content_key">负责人</p>
+                    <p className="info_pannel_content_value">{leader}</p>
+                  </div>
+                  <div className="panel_line"></div>
+                  <div onClick={this.onClickphone} className="info_panel_content info_panel_content_active">
+                    <p className="info_pannel_content_key">联系方式</p>
+                    <p className="info_pannel_content_value">{leaderphone}</p>
+                  </div>
+                  <div className="panel_line"></div>
+                  <div className="info_panel_content">
+                    <p className="info_pannel_content_key">值班人员</p>
+                    <p className="info_pannel_content_value">{dutyname}</p>
+                  </div>
+                </div>
               </div>
             </div>
             <div id="carousel">
-              <div id="barchart"></div>
+              {/*<div id="barchart"></div>*/}
+              <div id="prison_wrapper" className="wrapper">
+                <div className="scroller_hor">
+                  <ul>
+                  {prisonlist}
+                  </ul>
+                </div>
+              </div>
             </div>
             <div className="weui_dialog_confirm" id="querycall" style={{display: 'none'}}>
                 <div className="weui_mask"></div>
                 <div className="weui_dialog">
-                    <div className="weui_dialog_hd"><strong className="weui_dialog_title">提示</strong></div>
-                    <div className="weui_dialog_bd">您确定要立刻开始点名吗？</div>
+                    <div className="weui_dialog_hd"><strong className="weui_dialog_title">手动点名</strong></div>
+                    <div className="weui_dialog_bd">下次自动点名时间为11:00<br />您确定要立刻开始点名吗？</div>
                     <div className="weui_dialog_ft">
                         <a href="javascript:;" className="weui_btn_dialog default">取消</a>
                         <a href="javascript:;" onClick={this.onClickCall} className="weui_btn_dialog primary">确定</a>
                     </div>
+                </div>
+            </div>
+            <div className="weui_mask_transition" id="mask"></div>
+            <div className="weui_actionsheet" id="weui_actionsheet">
+                <div className="weui_actionsheet_menu">
+                    <div className="weui_actionsheet_cell">
+                    <a href={href_tel}>{actionsheet_tel}</a>
+                    </div>
+                    <div className="weui_actionsheet_cell">
+                    <a href={href_sms}>{actionsheet_sms}</a>
+                    </div>
+                </div>
+                <div className="weui_actionsheet_action">
+                    <div className="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>
                 </div>
             </div>
            </div>;

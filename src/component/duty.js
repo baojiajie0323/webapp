@@ -396,10 +396,10 @@ class Duty extends Component {
             </div>
             <div id="dutycharts" onMouseDown={this.cancelshowduty} style={{marginTop:marginTop}}>
               <div id="dutycharts_mask" style={{width:100 - percent+'%'}}></div>
-              <div id="callprogress" style={{transform:'translate3d(' + progressleft+',0,0)',opacity:progressopacity}}>
+              {/*<div id="callprogress" style={{transform:'translate3d(calc('+progressleft+' + 4px)' +',0,0)',opacity:progressopacity}}>
                 <div id="callprogress_1"></div>
                 <div id="callprogress_2"></div>
-              </div>
+              </div>*/}
               <div id="chartspanel_out"></div>
               <div id="chartspanel_in">
               </div>

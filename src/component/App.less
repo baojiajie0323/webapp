@@ -478,7 +478,7 @@ a:hover {
 
 #dutycharts{
   position: relative;
-  height: 415px;
+  height: 425px;
   text-align: center;
   font-size: 26px;
   color: black;
@@ -489,11 +489,42 @@ a:hover {
 
 #dutycharts_mask{
   position: absolute;
-  width: 100%;
+  right: 0;
   height: 100%;
-  background-color:  rgba(0, 226, 255, 0.1);
+  background-color: rgba(255,255,255,0.05);
   z-index: 4;
   transition: width 0.5s ease;
+}
+
+#callprogress{
+  position: absolute;
+  width: 100%;
+  height: 35px;
+  bottom: -15px;
+  z-index: 4;
+  transform: translate3d(0,0,0);
+  transition: all 0.5s ease;
+}
+
+#callprogress_1{
+  position: absolute;
+  height: 100%;
+  left: 0;
+  right:6px;
+  background-image: url('../img/progress_1.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#callprogress_2{
+  position: absolute;
+  height: 100%;
+  top:0;
+  right:0;
+  width: 6px;
+  background-image: url('../img/progress.png');
+  background-repeat: no-repeat;
+  background-size: auto 100%;
 }
 
 #piechart{
@@ -566,8 +597,9 @@ a:hover {
   background-color: rgb(237,237,237);
   position: absolute;
   width: 100%;
-  top:460px;
+  top:470px;
   bottom:55px;
+  z-index: 5;
 }
 
 #barchart{
@@ -588,8 +620,8 @@ a:hover {
 #dutyinfopanel{
   position: absolute;
   width: 200%;
-  height: 150px;
-  top: 310px;
+  height: 135px;
+  top: 335px;
   left: -100%;
   transition: transform 0.8s ease;
   z-index: 2;
@@ -611,8 +643,44 @@ a:hover {
 .li_prison{
   width: 100px;
   height: 100%;
-  border-right: 1px solid #ccc;
-  background-color: #fafafa;
+  border-right: 1px solid #1F2F3E;
+  background-color: #2A374F;
+  position: relative;
+}
+
+.li_prison_name{
+  position: absolute;
+  text-align: right;
+  width: 100%;
+  bottom: 6px;
+  right: 8px;
+  color: rgb(199, 212, 224);
+  font-size: 12px;
+}
+
+.li_prison_count{
+  position: absolute;
+  height: 50px;
+  top:39%;
+  margin-top: -25px;
+  line-height: 50px;
+  text-align: center;
+  width: 100%;
+  color: white;
+  font-size: 30px;
+  transform: scale(0.8,1);
+}
+
+.li_prison_mask{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.3);
+  transition: height 0.5s ease;
+}
+
+.li_prison_count .ren{
+  font-size: 14px;
 }
 
 .typeaccount{
@@ -666,4 +734,34 @@ a:hover {
 }
 #mask{
   z-index: 11;
+}
+
+#stategird{
+  position: absolute;
+  bottom: 55px;
+  height: 270px;
+  width: 100%;
+  display: flex;
+  flex-wrap:wrap;
+}
+
+.stateblock{
+  width: 50%;
+  height: 50%;
+}
+
+#state_device{
+  background: rgb(52, 70, 101);
+}
+
+#state_service{
+  background: rgb(55, 75, 111);
+}
+
+#state_backup{
+  background: rgb(48, 60, 92);
+}
+
+#state_temp{
+  background: rgb(42, 55, 79);
 }

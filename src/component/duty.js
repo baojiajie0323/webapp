@@ -14,7 +14,7 @@ var currentprisonsel = -1;
 
 function convertIndex2Chn(index){
   var data = ['一','二','三','四','五','六','七','八','九','十'];
-  return data[index];
+  return data[index - 1];
 }
 
 function getprisonCount(index){
@@ -43,11 +43,12 @@ class Duty extends Component {
             _this.currentprisonsel = this;
             currentprisonsel = i;
             _this.setState({showdutyinfo:true});
+            this.style.background = 'rgb(55,75,111)'
           }else{
             _this.setState({showdutyinfo:false});
             _this.currentprisonsel = null;
+            this.style.background = 'rgb(42,55,79)';
           }
-          this.style.background = !this.style.background ? 'rgb(55,75,111)' : '';
        }, false);
     }
   }
@@ -244,7 +245,7 @@ class Duty extends Component {
   cancelshowduty(){
     if(this.currentprisonsel != null){
       this.setState({showdutyinfo:false});
-      this.currentprisonsel.style.background = '';
+      this.currentprisonsel.style.background = 'rgb(42,55,79)';
       this.currentprisonsel = null;
     }
   }
@@ -292,7 +293,7 @@ class Duty extends Component {
     }
   }
   isCalling(){
-    return this.state.dutyinfo.length < prisonCount;
+    return Store.getvalidprison() < prisonCount;
   }
   onClickphone(){
     var mask = $('#mask');
@@ -322,7 +323,7 @@ class Duty extends Component {
 
     var subtitletext = "";
     if(bCalling){
-      subtitletext = "正在更新 " + this.state.dutyinfo.length + '/10';
+      subtitletext = "正在更新 " + Store.getvalidprison() + '/10';
     }else{
       subtitletext = "已更新1分钟";
     }
@@ -331,7 +332,7 @@ class Duty extends Component {
     var rotateY = 'rotateY(-90deg) skewY(-10deg)';
 
     if(this.state.showdutyinfo){
-      marginTop = '-150px';
+      marginTop = '-135px';
       rotateY = 'rotateY(0deg) skewY(0deg)';
     }
 
@@ -342,7 +343,8 @@ class Duty extends Component {
     var actionsheet_sms = "";
     var href_tel = "";
     var href_sms = "";
-    if(currentprisonsel >= 0 && currentprisonsel < this.state.dutyinfo.length){
+    if(currentprisonsel >= 0 && currentprisonsel < this.state.dutyinfo.length &&
+    this.state.dutyinfo[currentprisonsel].leader != undefined){
       leader = this.state.dutyinfo[currentprisonsel].leader.name;
       leaderphone = this.state.dutyinfo[currentprisonsel].leader.tel;
       dutyname = this.state.dutyinfo[currentprisonsel].dutyperson.join(" ");
@@ -350,19 +352,41 @@ class Duty extends Component {
       actionsheet_tel = '给 '+ leader + ' ' + leaderphone + ' 打电话';
       actionsheet_sms = '给 '+ leader + ' ' + leaderphone + ' 发短信';
       href_tel = 'tel:' + leaderphone;
-      href_sms = 'sms:' + leaderphone + '?body=' + leader + '：你好，请你及时点名。';
+      href_sms = 'sms:' + leaderphone + '?body=' + leader + '：你好，请你及时提交点名信息。';
     }
 
     var prisonlist = [];
 
     for (var i = 0; i < prisonCount; i++) {
       var prisoninfo = this.state.dutyinfo[i];
+      var prisoncount = <p className="li_prison_count" style={{color:'rgb(255, 85, 0)',fontSize:'25px'}}>未提交</p>;
+      var maskheight = '100%';
+      if(prisoninfo.prisonercount != undefined){
+        var count = prisoninfo.prisonercount.zglc + prisoninfo.prisonercount.jcwd + prisoninfo.prisonercount.ynjy +
+            prisoninfo.prisonercount.jshj + prisoninfo.prisonercount.thcs;
+
+        if(count > 0){
+          prisoncount = <p className="li_prison_count" style={{color:'white'}}>{count}<span className="ren">人</span></p>
+          maskheight = '0';
+        }
+      }
+
+
       var prisondiv = <li className="li_prison">
+        {/*<div className="li_prison_mask" style={{height:maskheight}}></div>*/}
+        {prisoncount}
+        <p className="li_prison_name">{convertIndex2Chn(prisoninfo.index) + '监区'}</p>
       </li>;
       prisonlist.push(prisondiv);
     }
 
-    var percent = this.state.dutyinfo.length*100/prisonCount + '%';
+    var percent = Store.getvalidprison()*100/prisonCount;
+    var progressleft = '-' + (100 - Store.getvalidprison()*100/prisonCount) + '%';
+    var progressopacity = 1;
+    if(Store.getvalidprison() == prisonCount){
+      progressopacity = 0;
+    }
+
     return <div className="weui_tab_bd" style={{backgroundColor:'black'}}>
             <div className="titlebar">
               <p className="titlebar_title">值班管理</p>
@@ -371,7 +395,11 @@ class Duty extends Component {
               </div>
             </div>
             <div id="dutycharts" onMouseDown={this.cancelshowduty} style={{marginTop:marginTop}}>
-              <div id="dutycharts_mask" style={{width:percent}}></div>
+              <div id="dutycharts_mask" style={{width:100 - percent+'%'}}></div>
+              <div id="callprogress" style={{transform:'translate3d(' + progressleft+',0,0)',opacity:progressopacity}}>
+                <div id="callprogress_1"></div>
+                <div id="callprogress_2"></div>
+              </div>
               <div id="chartspanel_out"></div>
               <div id="chartspanel_in">
               </div>

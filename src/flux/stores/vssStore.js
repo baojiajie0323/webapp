@@ -12,7 +12,8 @@ var _devicemsg = [];
 var _systemmsg = [];
 var _dutymsg = [];
 
-var _dutyinfo = [];
+var _dutyinfo = [{index:1},{index:2},{index:3},{index:4},{index:5},
+                {index:6},{index:7},{index:8},{index:9},{index:10}];
 /**
  * store
  */
@@ -97,7 +98,8 @@ var VssStore = assign({}, EventEmitter.prototype, {
   },
 
   cleardutyinfo:function(){
-    _dutyinfo = [];
+    _dutyinfo = [{index:1},{index:2},{index:3},{index:4},{index:5},
+                    {index:6},{index:7},{index:8},{index:9},{index:10}];
     this.emitChange(this.notifytype.dutychange);
   },
 
@@ -112,19 +114,33 @@ var VssStore = assign({}, EventEmitter.prototype, {
     _dutyinfo.push(info);
     this.emitChange(this.notifytype.dutychange);
   },
+
+  getvalidprison:function(){
+      var count = 0;
+      for (var i = 0; i < _dutyinfo.length; i++) {
+        var info = _dutyinfo[i];
+        if(info.prisonercount != undefined){
+          count++;
+        }
+      }
+      return count;
+  },
+
   getAllPrionserCount:function(type){
     var nCount = 0;
     for (var i = 0; i < _dutyinfo.length; i++) {
-      if(type == -1 || type == "zglc"){
-        nCount += _dutyinfo[i].prisonercount.zglc;
-      }if(type == -1 || type == "jcwd"){
-        nCount += _dutyinfo[i].prisonercount.jcwd;
-      }if(type == -1 || type == "ynjy"){
-        nCount += _dutyinfo[i].prisonercount.ynjy;
-      }if(type == -1 || type == "jshj"){
-        nCount += _dutyinfo[i].prisonercount.jshj;
-      }if(type == -1 || type == "thcs"){
-        nCount += _dutyinfo[i].prisonercount.thcs;
+      var info = _dutyinfo[i];
+
+      if(info.prisonercount != undefined && (type == -1 || type == "zglc")){
+        nCount += info.prisonercount.zglc;
+      }if(info.prisonercount != undefined && (type == -1 || type == "jcwd")){
+        nCount += info.prisonercount.jcwd;
+      }if(info.prisonercount != undefined && (type == -1 || type == "ynjy")){
+        nCount += info.prisonercount.ynjy;
+      }if(info.prisonercount != undefined && (type == -1 || type == "jshj")){
+        nCount += info.prisonercount.jshj;
+      }if(info.prisonercount != undefined && (type == -1 || type == "thcs")){
+        nCount += info.prisonercount.thcs;
       }
     }
     if(type == -1){

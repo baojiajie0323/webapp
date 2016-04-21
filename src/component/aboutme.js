@@ -54,7 +54,7 @@ class Aboutme extends Component {
               <p className="titlebar_title">个人中心</p>
             </div>
             <div id="user_bd">
-              <QueueAnim type="scaleBig">
+              <QueueAnim type="alpha">
               <div id="user_photo_bg" key="user_photo_bg">
                 <div id="user_photo">
                 </div>

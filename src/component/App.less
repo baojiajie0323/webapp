@@ -87,6 +87,7 @@ a:hover {
   width: 75%;
   margin-top: 86px;
   height: 50px;
+  transition: all 0.3s ease;
 }
 
 .inputpanel{
@@ -96,6 +97,10 @@ a:hover {
   font-size: 17px;
   color: white;
   -webkit-tap-highlight-color: red;
+}
+
+.inputpanel:focus{
+  transform: scale(1.1);
 }
 
 .inputpanel:after {
@@ -739,29 +744,27 @@ a:hover {
 #stategird{
   position: absolute;
   bottom: 55px;
-  height: 270px;
+  top:45px;
   width: 100%;
-  display: flex;
-  flex-wrap:wrap;
 }
 
 .stateblock{
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 25%;
 }
 
 #state_device{
-  background: rgb(52, 70, 101);
+  background: rgb(238,69,40);
 }
 
 #state_service{
-  background: rgb(55, 75, 111);
+  background: rgb(250,189,122);
 }
 
 #state_backup{
-  background: rgb(48, 60, 92);
+  background: rgb(3,164,169);
 }
 
 #state_temp{
-  background: rgb(42, 55, 79);
+  background: rgb(243,154,19);
 }

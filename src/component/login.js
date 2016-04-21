@@ -16,7 +16,23 @@ class Login extends Component {
       message.error('用户名或密码错误！');
       return;
     }
-    Store.setloginsuccess(true);
+
+    $('#loginbtn').html("");
+    $('#loginbtn').css({
+      width:'50px',
+      borderRadius:'25px'
+    })
+
+    setTimeout(function(){
+      $('#loginbtn').css({
+        transform:'scale(30)'
+      })
+    },400);
+
+    setTimeout(function(){
+      Store.setloginsuccess(true);
+    },800);
+
   }
   render() {
     return <div id="loginpanel" className="fullscreen">
@@ -38,7 +54,8 @@ class Login extends Component {
                     <input id="input_password" className="weui_input" defaultValue="123456" type="password" placeholder="请输入密码"/>
                 </div>
             </div>
-            <a href="javascript:;" id="loginbtn" onClick={this.onClickLogin} className="weui_btn weui_btn_primary">登 录</a>
+            <div id="loginbtn" onClick={this.onClickLogin} className="weui_btn weui_btn_primary">登 录</div>
+
            </div>;
   }
 }

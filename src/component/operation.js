@@ -2,67 +2,38 @@ import React, { Component } from 'react';
 import { QueueAnim } from 'antd';
 import './App.less';
 
-
-
-
-
-const echarts = require('echarts');
+const Store = require("../flux/stores/vssStore");
 
 class Operation extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstlogin:true,
+      showtipelement:false,
+    };
+    this.onClickStarttipOK = this.onClickStarttipOK.bind(this);
+  }
   componentDidMount(){
-//     var myChart = echarts.init(document.getElementById('charts'));
-//     // 绘制图表.
-//     var option = {
-//     tooltip : {
-//         trigger: 'axis',
-//         axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-//             type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-//         }
-//     },
-//     legend: {
-//         data:['谈话系统','访客系统','安防系统','督导系统']
-//     },
-//     grid: {
-//         left: '3%',
-//         right: '4%',
-//         bottom: '3%',
-//         containLabel: true
-//     },
-//     xAxis : [
-//         {
-//             type : 'category',
-//             data : ['CPU','内存','磁盘']
-//         }
-//     ],
-//     yAxis : [
-//         {
-//             type : 'value'
-//         }
-//     ],
-//     series : [
-//         {
-//             name:'谈话系统',
-//             type:'bar',
-//             data:[20, 40, 70]
-//         },
-//         {
-//             name:'访客系统',
-//             type:'bar',
-//             data:[18, 75, 40]
-//         },
-//         {
-//             name:'安防系统',
-//             type:'bar',
-//             data:[30, 66, 40]
-//         },
-//         {
-//             name:'督导系统',
-//             type:'bar',
-//             data:[25, 68, 50]
-//         }
-//     ]
-// };
-//     myChart.setOption(option);
+    if(Store.getfirstlogin()){
+      var _this = this;
+      setTimeout(function(){
+        $('#starttip').css({
+          transform:'scale(1)'
+        })
+      },200);
+
+      setTimeout(function(){
+        _this.setState({
+          showtipelement:true
+        })
+      },400);
+    }
+  }
+  onClickStarttipOK(){
+    Store.setfirstlogin();
+    this.setState({
+      firstlogin:false
+    })
   }
   render() {
     return <div id="operation" className="weui_tab_bd">
@@ -75,6 +46,15 @@ class Operation extends Component {
                 <div id="state_backup" className="stateblock"></div>
                 <div id="state_temp" className="stateblock"></div>
               </div>
+              {Store.getfirstlogin()?[
+                <div className="mask"></div>,
+                <div id="starttip">
+                  {this.state.showtipelement?
+                    <div id="starttipokbtn" onClick={this.onClickStarttipOK} className="weui_btn weui_btn_primary">确 定</div>
+                    :null
+                  }
+                </div>
+              ]:null}
            </div>;
   }
 }

@@ -38,7 +38,7 @@ class App extends Component {
     this.setState({
       login:Store.getloginsuccess()
     });
-    if(!this.state.login){
+    if(!Store.getloginsuccess()){
       this.setState({tabindex:1});
     }
   }

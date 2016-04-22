@@ -496,7 +496,7 @@ a:hover {
   position: absolute;
   right: 0;
   height: 100%;
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(95, 123, 124, 0.31);
   z-index: 4;
   transition: width 1s ease;
 }
@@ -767,4 +767,35 @@ a:hover {
 
 #state_temp{
   background: rgb(243,154,19);
+}
+
+.mask{
+  position: fixed;
+  z-index: 11;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#starttip{
+  position: absolute;
+  z-index: 99;
+  transition: all 0.2s ease;
+  width: 300px;
+  height: 230px;
+  left: 50%;
+  top: 50%;
+  margin-left: -150px;
+  margin-top: -135px;
+  background: rgb(36,196,194);
+  transform: scale(20);
+  border-radius: 5px;
+}
+
+#starttipokbtn{
+  width: 75%;
+  margin-top: 86px;
+  height: 50px;
 }

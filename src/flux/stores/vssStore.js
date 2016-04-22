@@ -14,6 +14,8 @@ var _dutymsg = [];
 
 var _dutyinfo = [{index:1},{index:2},{index:3},{index:4},{index:5},
                 {index:6},{index:7},{index:8},{index:9},{index:10}];
+
+var _firstlogin = true;
 /**
  * store
  */
@@ -69,6 +71,14 @@ var VssStore = assign({}, EventEmitter.prototype, {
 
   getloginsuccess: function(){
     return _loginsuccess;
+  },
+
+  getfirstlogin:function(){
+    return _firstlogin;
+  },
+
+  setfirstlogin:function(){
+    _firstlogin = false;
   },
 
   adddevicemsg: function(msg){

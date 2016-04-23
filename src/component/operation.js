@@ -14,20 +14,6 @@ class Operation extends Component {
     this.onClickStarttipOK = this.onClickStarttipOK.bind(this);
   }
   componentDidMount(){
-    if(Store.getfirstlogin()){
-      var _this = this;
-      setTimeout(function(){
-        $('#starttip').css({
-          transform:'scale(1)'
-        })
-      },200);
-
-      setTimeout(function(){
-        _this.setState({
-          showtipelement:true
-        })
-      },400);
-    }
   }
   onClickStarttipOK(){
     Store.setfirstlogin();
@@ -41,18 +27,23 @@ class Operation extends Component {
                 <p className="titlebar_title">运维管理</p>
               </div>
               <div id="stategird">
-                <div id="state_device" className="stateblock"></div>
-                <div id="state_service" className="stateblock"></div>
-                <div id="state_backup" className="stateblock"></div>
-                <div id="state_temp" className="stateblock"></div>
+                <div id="state_device" className="stateblock">
+                  <p className="statetitle">系统后台</p>
+                </div>
+                <div id="state_service" className="stateblock">
+                  <p className="statetitle">安防设备</p>
+                </div>
+                <div id="state_backup" className="stateblock">
+                  <p className="statetitle">机房温度</p>
+                </div>
+                <div id="state_temp" className="stateblock">
+                  <p className="statetitle">数据备份</p>
+                </div>
               </div>
               {Store.getfirstlogin()?[
                 <div className="mask"></div>,
                 <div id="starttip">
-                  {this.state.showtipelement?
-                    <div id="starttipokbtn" onClick={this.onClickStarttipOK} className="weui_btn weui_btn_primary">确 定</div>
-                    :null
-                  }
+                  <div id="starttipokbtn" onClick={this.onClickStarttipOK} className="weui_btn weui_btn_primary">确 定</div>
                 </div>
               ]:null}
            </div>;

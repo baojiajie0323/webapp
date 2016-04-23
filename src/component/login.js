@@ -3,8 +3,16 @@ import { QueueAnim,Icon,message } from 'antd';
 import './App.less';
 
 const Store = require('../flux/stores/vssStore');
+const InkButton = require('./inkbutton');
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loginbtnname:'登 录'
+    };
+    this.onClickLogin = this.onClickLogin.bind(this);
+  }
   componentDidMount(){
   }
   onClickLogin(){
@@ -17,21 +25,24 @@ class Login extends Component {
       return;
     }
 
-    $('#loginbtn').html("");
-    $('#loginbtn').css({
-      width:'50px',
-      borderRadius:'25px'
-    })
+    var _this = this;
+    setTimeout(function(){
+      $('#loginbtn').css({
+        width:'50px',
+        borderRadius:'25px'
+      })
+      _this.setState({loginbtnname:''})
+    },400);
 
     setTimeout(function(){
       $('#loginbtn').css({
         transform:'scale(30)'
       })
-    },400);
+    },800);
 
     setTimeout(function(){
       Store.setloginsuccess(true);
-    },800);
+    },1200);
 
   }
   render() {
@@ -54,8 +65,8 @@ class Login extends Component {
                     <input id="input_password" className="weui_input" defaultValue="123456" type="password" placeholder="请输入密码"/>
                 </div>
             </div>
-            <div id="loginbtn" onClick={this.onClickLogin} className="weui_btn weui_btn_primary">登 录</div>
-
+            {/*<div id="loginbtn" onClick={this.onClickLogin} className="weui_btn weui_btn_primary">登 录</div>*/}
+            <InkButton id="loginbtn" clickfun={this.onClickLogin} value={this.state.loginbtnname} clsname="weui_btn weui_btn_primary" />
            </div>;
   }
 }

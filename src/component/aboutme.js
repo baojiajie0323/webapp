@@ -5,6 +5,7 @@ import './App.less';
 const Store = require('../flux/stores/vssStore');
 const Setting = require('./setting');
 const Modifyphone = require('./modifyphone');
+const InkButton = require('./inkbutton');
 
 class Aboutme extends Component {
   constructor(props) {
@@ -89,7 +90,7 @@ class Aboutme extends Component {
                 <Icon className="info_pannel_content_last" type="setting" />
               </div>
             </div>
-            <a href="javascript:;" id="logoutbtn" onClick={this.onClickQuery} className="weui_btn weui_btn_warn">退出登录</a>
+            <InkButton id="logoutbtn" clickfun={this.onClickQuery} clsname="weui_btn weui_btn_warn" value="退出登录" />
             <div className="weui_dialog_confirm" id="querylogout" style={{display: 'none'}}>
                 <div className="weui_mask"></div>
                 <div className="weui_dialog">

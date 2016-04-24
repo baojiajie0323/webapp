@@ -8,6 +8,7 @@ const echarts = require('echarts');
 const Store = require('../flux/stores/vssStore');
 const Action = require('../flux/actions/vssActions');
 const IScroll = require('./iscroll.js');
+const InkButton = require('./inkbutton');
 
 const prisonCount = 10;
 var currentprisonsel = -1;
@@ -373,7 +374,6 @@ class Duty extends Component {
 
 
       var prisondiv = <li className="li_prison">
-        {/*<div className="li_prison_mask" style={{height:maskheight}}></div>*/}
         {prisoncount}
         <p className="li_prison_name">{convertIndex2Chn(prisoninfo.index) + '监区'}</p>
       </li>;
@@ -387,12 +387,12 @@ class Duty extends Component {
       progressopacity = 0;
     }
 
+    var callbtn = <Icon type="calendar" />;
+
     return <div className="weui_tab_bd" style={{backgroundColor:'black'}}>
             <div className="titlebar">
               <p className="titlebar_title">值班管理</p>
-              <div onClick={this.onClickQuery} className="titlebar_iconpanel">
-                <Icon type="calendar" />
-              </div>
+              <InkButton id="callbtn" clickfun={this.onClickQuery} clsname="titlebar_iconpanel" value={callbtn} />
             </div>
             <div id="dutycharts" onMouseDown={this.cancelshowduty} style={{marginTop:marginTop}}>
               <div id="dutycharts_mask" style={{width:100 - percent+'%'}}></div>
@@ -404,7 +404,7 @@ class Duty extends Component {
               <div id="chartspanel_in">
               </div>
               <div id="piechart"></div>
-              <p id="prisonsubtitle">{subtitletext}</p>
+              <p id="prisonsubtitle" style={{color:bCalling?'rgb(255, 85, 0)':'#888'}}>{subtitletext}</p>
               <p id="prisontitle">在押人数</p>
               <p id="prisoncount">{Store.getAllPrionserCount(-1)}</p>
               <div id="typeaccountpanel">
@@ -438,15 +438,17 @@ class Duty extends Component {
             <div id="dutyinfopanel" style={{transform:rotateY}}>
               <div id="dutyinfo">
                 <div className="info_panel">
-                  <div onClick={this.onClickphone} className="info_panel_content info_panel_content_active">
-                    <p className="info_pannel_content_key">负责人</p>
-                    <p className="info_pannel_content_value">{leader}</p>
-                  </div>
+                  <InkButton id="leaderbtn" clickfun={this.onClickphone} clsname="info_panel_content info_panel_content_active"
+                   value={[
+                     <p className="info_pannel_content_key">负责人</p>,
+                     <p className="info_pannel_content_value">{leader}</p>
+                   ]} />
                   <div className="panel_line"></div>
-                  <div onClick={this.onClickphone} className="info_panel_content info_panel_content_active">
-                    <p className="info_pannel_content_key">联系方式</p>
+                  <InkButton id="leaderphonebtn" clickfun={this.onClickphone} clsname="info_panel_content info_panel_content_active"
+                   value={[
+                    <p className="info_pannel_content_key">联系方式</p>,
                     <p className="info_pannel_content_value">{leaderphone}</p>
-                  </div>
+                  ]} />
                   <div className="panel_line"></div>
                   <div className="info_panel_content">
                     <p className="info_pannel_content_key">值班人员</p>

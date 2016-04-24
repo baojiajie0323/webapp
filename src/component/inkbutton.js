@@ -4,8 +4,14 @@ class InkButton extends Component {
   constructor(props) {
     super(props);
     this.onBtnClick = this.onBtnClick.bind(this);
+    this.onTouchStart = this.onTouchStart.bind(this);
   }
   onBtnClick(e){
+    if(this.props.clickfun){
+      this.props.clickfun()
+    }
+  }
+  onTouchStart(e){
     var parent, ink, d, x, y;
     parent = $('#' + this.props.id);
     //create .ink element if it doesn't exist
@@ -26,18 +32,14 @@ class InkButton extends Component {
 
     //get click coordinates
     //logic = click coordinates relative to page - parent's position relative to page - half of self height/width to make it controllable from the center;
-    x = e.pageX - parent.offset().left - ink.width()/2;
-    y = e.pageY - parent.offset().top - ink.height()/2;
+    x = e.touches[0].pageX - parent.offset().left - ink.width()/2;
+    y = e.touches[0].pageY - parent.offset().top - ink.height()/2;
 
     //set the position and add class .animate
     ink.css({top: y+'px', left: x+'px'}).addClass("animate");
-
-    if(this.props.clickfun){
-      this.props.clickfun()
-    }
   }
   render() {
-    return <div id={this.props.id} onClick={this.onBtnClick} className={this.props.clsname}>
+    return <div style={{overflow:'hidden'}} id={this.props.id} onTouchStart={this.onTouchStart} onClick={this.onBtnClick} className={this.props.clsname}>
     {this.props.value}
     </div>
   }

@@ -3,6 +3,7 @@ import {QueueAnim,Icon } from 'antd';
 import './App.less';
 
 const Store = require('../flux/stores/vssStore');
+const InkButton = require('./inkbutton');
 
 class ModifyPhone extends Component {
   constructor(props) {
@@ -32,9 +33,7 @@ class ModifyPhone extends Component {
                 </div>
                 <div className="titlebar_line"></div>
                 <p className="titlebar_title">修改手机号</p>
-                <div onClick={this.onClickSave} className="titlebar_save">
-                  保存
-                </div>
+                <InkButton id="savebtn" clickfun={this.onClickSave} clsname="titlebar_save" value="保存" />
               </div>
               <br />
               <div className="info_panel">

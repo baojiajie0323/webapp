@@ -79,16 +79,18 @@ class Aboutme extends Component {
                 <p className="info_pannel_content_value">6742</p>
               </div>
               <div className="panel_line"></div>
-              <div onClick={this.onClickModifyphone} className="info_panel_content info_panel_content_active">
-                <p className="info_pannel_content_key">手机</p>
-                <p className="info_pannel_content_value">15026489683</p>
-              </div>
+              <InkButton id="modifyphonebtn" clickfun={this.onClickModifyphone} clsname="info_panel_content info_panel_content_active"
+               value={[
+                 <p className="info_pannel_content_key">手机</p>,
+                 <p className="info_pannel_content_value">15026489683</p>
+               ]} />
             </div>
             <div className="info_panel">
-              <div onClick={this.onClickSetting} className="info_panel_content info_panel_content_active">
-                <p className="info_pannel_content_key">设置</p>
-                <Icon className="info_pannel_content_last" type="setting" />
-              </div>
+              <InkButton id="settingbtn" clickfun={this.onClickSetting} clsname="info_panel_content info_panel_content_active"
+               value={[
+                 <p className="info_pannel_content_key">设置</p>,
+                 <Icon className="info_pannel_content_last" type="setting" />
+               ]} />
             </div>
             <InkButton id="logoutbtn" clickfun={this.onClickQuery} clsname="weui_btn weui_btn_warn" value="退出登录" />
             <div className="weui_dialog_confirm" id="querylogout" style={{display: 'none'}}>
@@ -97,7 +99,7 @@ class Aboutme extends Component {
                     <div className="weui_dialog_hd"><strong className="weui_dialog_title">提示</strong></div>
                     <div className="weui_dialog_bd">您确定要退出登录吗？</div>
                     <div className="weui_dialog_ft">
-                        <a href="tel:15026489683" className="weui_btn_dialog default">取消</a>
+                        <a href="javascript:;" className="weui_btn_dialog default">取消</a>
                         <a href="javascript:;" onClick={this.onClickLogout} className="weui_btn_dialog primary">确定</a>
                     </div>
                 </div>

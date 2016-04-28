@@ -7,11 +7,13 @@ const Store = require('../flux/stores/vssStore');
 
 class Message extends Component {
   componentDidMount() {
-    this.initscroll();
+    var _this = this;
+    setTimeout(function(){
+      _this.initscroll();
+    },500);
     Store.addChangeListener(Store.notifytype.msgchange,this.onMsgchange);
   }
-  componentDidUpdate(){
-    console.log('componentDidUpdate');
+  componentDidUpdate(){    
     this.initscroll();
   }
   constructor(props) {
@@ -127,34 +129,30 @@ class Message extends Component {
               </div>
               <Tabs defaultActiveKey="1" onChange={this.callback}>
                 <TabPane tab={devicename} key="1">
-                  <div id="device_wrapper" className="wrapper">
+                  <QueueAnim type="bottom">
+                  <div id="device_wrapper" key="device_wrapper" className="wrapper">
                     <div className="scroller">
                       <ul>
-                      <QueueAnim type="bottom" interval="40">
                       {devicelist}
-                      </QueueAnim>
                       </ul>
                     </div>
                   </div>
+                  </QueueAnim>
                 </TabPane>
                 <TabPane tab={systemname} key="2">
-                  <div id="system_wrapper" className="wrapper">
+                  <div id="system_wrapper" key="system_wrapper" className="wrapper">
                     <div className="scroller">
                       <ul>
-                      <QueueAnim type="bottom" interval="40">
                       {syslist}
-                      </QueueAnim>
                       </ul>
                     </div>
                   </div>
                 </TabPane>
                 <TabPane tab={dutyname} key="3">
-                  <div id="duty_wrapper" className="wrapper">
+                  <div id="duty_wrapper" key="duty_wrapper" className="wrapper">
                     <div className="scroller">
                       <ul>
-                      <QueueAnim type="bottom" interval="40">
                       {dutylist}
-                      </QueueAnim>
                       </ul>
                     </div>
                   </div>

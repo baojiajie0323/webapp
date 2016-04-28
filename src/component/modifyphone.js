@@ -25,7 +25,7 @@ class ModifyPhone extends Component {
     this.props.returnfun();
   }
   render() {
-    return <div className="fullscreen">
+    return <div className="subpagefullscreen">
             <div id="modifyphone">
               <div className="titlebar">
                 <div onClick={this.onClickReturn} className="titlebar_back">

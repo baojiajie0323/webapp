@@ -33,6 +33,11 @@ class App extends Component {
         navigator.splashscreen.hide();
      },3000);
      document.addEventListener("backbutton",function(){Store.back()},false);
+     if (window.StatusBar && cordova.platformId == 'android') {
+        //StatusBar.overlaysWebView(false);
+        console.log(window.translucentStatusbar.enabled);
+        //StatusBar.backgroundColorByHexString("#ff0000");
+     }
   }
   onLoginChange(){
     this.setState({

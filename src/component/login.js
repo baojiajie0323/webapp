@@ -9,9 +9,12 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginbtnname:'登 录'
+      loginbtnname:'登 录',
+      inputfocus:false
     };
     this.onClickLogin = this.onClickLogin.bind(this);
+    this.onInputFocus = this.onInputFocus.bind(this);
+    this.onInputBlur = this.onInputBlur.bind(this);
   }
   componentDidMount(){
   }
@@ -43,10 +46,15 @@ class Login extends Component {
     setTimeout(function(){
       Store.setloginsuccess(true);
     },1200);
-
+  }
+  onInputFocus(){
+    this.setState({inputfocus:true});
+  }
+  onInputBlur(){
+    this.setState({inputfocus:false});
   }
   render() {
-    return <div id="loginpanel" className="fullscreen">
+    return <div id="loginpanel" style={{marginTop:this.state.inputfocus?'-100px':'0'}} className="fullscreen">
             <div id="logo">
             </div>
             <div className="inputpanel">
@@ -54,7 +62,7 @@ class Login extends Component {
                   <Icon id="inputicon" type="user" />
                 </div>
                 <div className="weui_cell_bd weui_cell_primary">
-                    <input id="input_username" className="weui_input" defaultValue="baojiajie0323" placeholder="请输入用户名"/>
+                    <input id="input_username" onFocus={this.onInputFocus} onBlur={this.onInputBlur} className="weui_input" defaultValue="baojiajie0323" placeholder="请输入用户名"/>
                 </div>
             </div>
             <div className="inputpanel">
@@ -62,7 +70,7 @@ class Login extends Component {
                   <Icon id="inputicon" type="unlock" />
                 </div>
                 <div className="weui_cell_bd weui_cell_primary">
-                    <input id="input_password" className="weui_input" defaultValue="123456" type="password" placeholder="请输入密码"/>
+                    <input id="input_password" onFocus={this.onInputFocus} onBlur={this.onInputBlur} className="weui_input" defaultValue="123456" type="password" placeholder="请输入密码"/>
                 </div>
             </div>
             {/*<div id="loginbtn" onClick={this.onClickLogin} className="weui_btn weui_btn_primary">登 录</div>*/}

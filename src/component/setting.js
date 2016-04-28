@@ -45,7 +45,7 @@ class Setting extends Component {
     this.setState({dutytimeout:check});
   }
   render() {
-    return <div className="fullscreen">
+    return <div className="subpagefullscreen">
             <div id="setting">
               <div className="titlebar">
                 <div onClick={this.onClickReturn} className="titlebar_back">

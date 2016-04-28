@@ -4,6 +4,16 @@ body{
 }
 
 .fullscreen{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#loginpanel{
+  transition: all 0.3s ease;
+}
+
+.subpagefullscreen{
   position: fixed;
   width: 100%;
   height: 100%;
@@ -148,11 +158,11 @@ a:hover {
   background-image: url('../img/logo.png');
   background-size: contain;
   background-repeat: no-repeat;
-  margin: 60px auto 60px;
+  margin: 85px auto 60px;
 }
 
 .titlebar{
-  height: 45px;
+  height: 70px;
   width: 100%;
   background-color: rgb(42,55,79);
   position: relative;
@@ -161,7 +171,7 @@ a:hover {
 }
 
 .titlebar_title{
-  margin-left: 20px;
+  margin: 25px 0 0 20px;
   text-align: left;
   line-height: 45px;
   color: white;
@@ -172,7 +182,7 @@ a:hover {
   position: absolute;
   width: 60px;
   right: 0px;
-  top:0px;
+  top:25px;
   bottom: 0px;
   text-align: center;
   color:white;
@@ -188,7 +198,7 @@ a:hover {
   color: white;
   width: 40px;
   line-height: 50px;
-  padding-left: 10px;
+  padding: 25px 0 0 10px;
 }
 .titlebar_back:active{
   background-color: rgb(55,75,111);
@@ -198,6 +208,7 @@ a:hover {
   position: absolute;
   /* right: 5%; */
   right: 0;
+  padding-top: 25px;
   width: 68px;
   height: 100%;
   line-height: 45px;
@@ -211,8 +222,8 @@ a:hover {
 
 .titlebar_line{
   position: absolute;
-  top: 24%;
-  bottom: 24%;
+  top: 51%;
+  bottom: 16%;
   width: 1px;
   margin-left: 5px;
   background: #1D2128;;
@@ -363,7 +374,7 @@ a:hover {
 
 .ant-tabs-content{
   position: fixed;
-  top: 87px;
+  top: 112px;
   bottom: 56px;
 }
 
@@ -605,7 +616,7 @@ a:hover {
   background-color: rgb(237,237,237);
   position: absolute;
   width: 100%;
-  top:470px;
+  top:495px;
   bottom:55px;
   z-index: 5;
 }
@@ -629,7 +640,7 @@ a:hover {
   position: absolute;
   width: 200%;
   height: 135px;
-  top: 335px;
+  top: 360px;
   left: -100%;
   transition: transform 0.8s ease;
   z-index: 2;
@@ -747,7 +758,7 @@ a:hover {
 #stategird{
   position: absolute;
   bottom: 55px;
-  top:45px;
+  top:70px;
   width: 100%;
 }
 

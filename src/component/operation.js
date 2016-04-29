@@ -9,11 +9,24 @@ class Operation extends Component {
     super(props);
     this.state = {
       firstlogin:true,
-      showtipelement:false,
+      showstateblock:false,
+      showdeviceblock1:false,
+      showdeviceblock2:false,
+      showserverblock:false,
+      showtempblock:false,
+      showbackupblock:false,
     };
     this.onClickStarttipOK = this.onClickStarttipOK.bind(this);
   }
   componentDidMount(){
+    var _this = this;
+    setTimeout(function(){_this.setState({showstateblock:true});},0);
+    setTimeout(function(){_this.setState({showdeviceblock1:true});},400);
+    setTimeout(function(){_this.setState({showserverblock:true});},400);
+    setTimeout(function(){_this.setState({showtempblock:true});},500);
+    setTimeout(function(){_this.setState({showbackupblock:true});},600);
+    setTimeout(function(){_this.setState({showdeviceblock2:true});},950);
+
   }
   onClickStarttipOK(){
     Store.setfirstlogin();
@@ -23,30 +36,25 @@ class Operation extends Component {
   }
   render() {
     return <div id="operation" className="weui_tab_bd">
-              <div className="titlebar">
-                <p className="titlebar_title">运维管理</p>
+              <div id="stateblock" style={{top:this.state.showstateblock?'0':'100%'}}>
               </div>
-              <div id="stategird">
-                <div id="state_device" className="stateblock">
-                  <p className="statetitle">系统后台</p>
-                </div>
-                <div id="state_service" className="stateblock">
-                  <p className="statetitle">安防设备</p>
-                </div>
-                <div id="state_backup" className="stateblock">
-                  <p className="statetitle">机房温度</p>
-                </div>
-                <div id="state_temp" className="stateblock">
-                  <p className="statetitle">数据备份</p>
-                </div>
+              <div id="deviceblock" style={{top:this.state.showdeviceblock1?'47%':'100%',
+                bottom:this.state.showdeviceblock2?'175px':'55px'
+                }}>
               </div>
-              {Store.getfirstlogin()?[
-                <div className="mask"></div>,
-                <div id="starttip">
-                  <div id="starttipokbtn" onClick={this.onClickStarttipOK} className="weui_btn weui_btn_primary">确 定</div>
-                </div>
-              ]:null}
-           </div>;
+              <div id="serverblock" style={{bottom:this.state.showserverblock?'55px':'100%',
+                height:this.state.showserverblock?'120px':'200%'
+                }}>
+              </div>
+              <div id="tempblock" style={{bottom:this.state.showtempblock?'55px':'100%',
+                height:this.state.showtempblock?'120px':'200%'
+                }}>
+              </div>
+              <div id="backupblock" style={{bottom:this.state.showbackupblock?'55px':'100%',
+                height:this.state.showbackupblock?'120px':'200%'
+                }}>
+              </div>
+           </div>
   }
 }
 

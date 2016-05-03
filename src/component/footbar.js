@@ -7,7 +7,7 @@ class Footbar extends Component {
   render() {
     var _this2 = this;
     var value1 = [<div className="weui_tabbar_icon">
-           <Icon type="line-chart" />
+           <Icon type="appstore-o" />
        </div>,
        <p className="weui_tabbar_label">运维</p>
      ];
@@ -29,7 +29,7 @@ class Footbar extends Component {
           </div>,
           <p className="weui_tabbar_label">我的</p>
         ];
-    return <div className="weui_tabbar"> 
+    return <div className="weui_tabbar">
                 <InkButton id="taboperation" clickfun={function(){_this2.props.onsel(1)}} clsname={this.props.tabindex == 1?"weui_tabbar_item weui_bar_item_on":"weui_tabbar_item"}
                  value= {value1}
                 />

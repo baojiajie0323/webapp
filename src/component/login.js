@@ -59,7 +59,7 @@ class Login extends Component {
             </div>
             <div className="inputpanel">
                 <div className="weui_cell_hd">
-                  <Icon id="inputicon" type="user" />
+                  <i id="inputicon" className="icon iconfont">&#xe69c;</i>
                 </div>
                 <div className="weui_cell_bd weui_cell_primary">
                     <input id="input_username" onFocus={this.onInputFocus} onBlur={this.onInputBlur} className="weui_input" defaultValue="baojiajie0323" placeholder="请输入用户名"/>
@@ -67,7 +67,7 @@ class Login extends Component {
             </div>
             <div className="inputpanel">
                 <div className="weui_cell_hd">
-                  <Icon id="inputicon" type="unlock" />
+                  <i id="inputicon" className="icon iconfont">&#xe69f;</i>
                 </div>
                 <div className="weui_cell_bd weui_cell_primary">
                     <input id="input_password" onFocus={this.onInputFocus} onBlur={this.onInputBlur} className="weui_input" defaultValue="123456" type="password" placeholder="请输入密码"/>

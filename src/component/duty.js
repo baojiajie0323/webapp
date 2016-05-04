@@ -387,7 +387,7 @@ class Duty extends Component {
       progressopacity = 0;
     }
 
-    var callbtn = <Icon type="calendar" />;
+    var callbtn = <i className="icon iconfont">&#xe654;</i>;
 
     return <div className="weui_tab_bd" style={{backgroundColor:'black'}}>
             <div className="titlebar">

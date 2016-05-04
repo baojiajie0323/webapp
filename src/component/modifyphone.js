@@ -29,7 +29,7 @@ class ModifyPhone extends Component {
             <div id="modifyphone">
               <div className="titlebar">
                 <div onClick={this.onClickReturn} className="titlebar_back">
-                  <Icon type="left" />
+                  <i className="icon iconfont">&#xe601;</i>
                 </div>
                 <div className="titlebar_line"></div>
                 <p className="titlebar_title">修改手机号</p>

@@ -7,25 +7,25 @@ class Footbar extends Component {
   render() {
     var _this2 = this;
     var value1 = [<div className="weui_tabbar_icon">
-           <i className="icon iconfont">&#xe6b2;</i>
+           <Icon type="appstore" />
        </div>,
        <p className="weui_tabbar_label">运维</p>
      ];
 
     var value2 = [<div className="weui_tabbar_icon">
-            <i className="icon iconfont">&#xe68f;</i>
+            <Icon type="solution" />
         </div>,
         <p className="weui_tabbar_label">值班</p>
       ];
 
     var value3 = [<div className="weui_tabbar_icon">
-             <i className="icon iconfont">&#xe6a4;</i>
+             <Icon type="message" />
          </div>,
          <p className="weui_tabbar_label">消息</p>
        ];
 
     var value4 = [<div className="weui_tabbar_icon">
-              <i className="icon iconfont">&#xe69c;</i>
+              <Icon type="user" />
           </div>,
           <p className="weui_tabbar_label">我的</p>
         ];

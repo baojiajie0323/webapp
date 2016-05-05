@@ -66,6 +66,9 @@ var VssStore = assign({}, EventEmitter.prototype, {
 
   setloginsuccess: function(blogin){
     _loginsuccess = blogin;
+    if(!blogin){
+      _firstlogin = true;
+    }
     this.emitChange(this.notifytype.loginstate);
   },
 
@@ -77,8 +80,8 @@ var VssStore = assign({}, EventEmitter.prototype, {
     return _firstlogin;
   },
 
-  setfirstlogin:function(){
-    _firstlogin = false;
+  setfirstlogin:function(bfirst){
+    _firstlogin = bfirst;
   },
 
   adddevicemsg: function(msg){

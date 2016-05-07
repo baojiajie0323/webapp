@@ -51,9 +51,15 @@ class Backup extends Component {
 
       locked=true;
 
+      $('#backuptips').css("visibility","hidden");
+      $('#backuptext').text("备份中...");
+      $('#backuptext').css({
+        "color":"rgb(237,237,237)"
+      });
+
       TweenMax.to($sendIcon,0.3,{
-        x:200,
-        y:-200,
+        x:0,
+        y:-100,
         ease:Quad.easeIn,
         onComplete:function(){
           setGooNoComp();
@@ -104,6 +110,11 @@ class Backup extends Component {
             ease:Back.easeOut
           });
 
+          $('#backuptext').text("完成");
+          $('#backuptext').css({
+            "color":"rgb(90,241,88)",
+            "margin-top":"0"
+          });
           // back to normal
           setTimeout(function(){
             TweenMax.to($sentBg,0.4,{
@@ -126,11 +137,18 @@ class Backup extends Component {
                 });
               }
             });
+            $('#backuptips').html("距离上次备份 <span id='backuptips_number'>1</span> 分钟");
+            $('#backuptips').css("visibility","visible");
+            $('#backuptext').text("已备份");
+            $('#backuptext').css({
+              "color":"rgb(247,142,66)",
+              "margin-top":"30px"
+            });
           },2000);
 
         },1000);
 
-      },3000+(Math.random()*3000))
+      },5000)
     }
     function setupCircle($obj){
       if(typeof($obj.data("circle"))=="undefined"){
@@ -200,6 +218,9 @@ class Backup extends Component {
                   </button>
                 </div>
               </div>
+
+              <p id="backuptips">距离上次备份 <span id="backuptips_number">1</span> 天</p>
+              <p id="backuptext">已备份</p>
 
             </div>
            </div>;

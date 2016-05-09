@@ -30,16 +30,16 @@ class Footbar extends Component {
           <p className="weui_tabbar_label">我的</p>
         ];
     return <div className="weui_tabbar">
-                <InkButton id="taboperation" clickfun={function(){_this2.props.onsel(1)}} clsname={this.props.tabindex == 1?"weui_tabbar_item weui_bar_item_on":"weui_tabbar_item"}
+                <InkButton showanimate={false} id="taboperation" clickfun={function(){_this2.props.onsel(1)}} clsname={this.props.tabindex == 1?"weui_tabbar_item weui_bar_item_on":"weui_tabbar_item"}
                  value= {value1}
                 />
-                <InkButton id="tabduty" clickfun={function(){_this2.props.onsel(2)}} clsname={this.props.tabindex == 2?"weui_tabbar_item weui_bar_item_on":"weui_tabbar_item"}
+                <InkButton showanimate={false} id="tabduty" clickfun={function(){_this2.props.onsel(2)}} clsname={this.props.tabindex == 2?"weui_tabbar_item weui_bar_item_on":"weui_tabbar_item"}
                  value= {value2}
                 />
-                <InkButton id="tabmessage" clickfun={function(){_this2.props.onsel(3)}} clsname={this.props.tabindex == 3?"weui_tabbar_item weui_bar_item_on":"weui_tabbar_item"}
+                <InkButton showanimate={false} id="tabmessage" clickfun={function(){_this2.props.onsel(3)}} clsname={this.props.tabindex == 3?"weui_tabbar_item weui_bar_item_on":"weui_tabbar_item"}
                  value= {value3}
                 />
-                <InkButton id="tababoutme" clickfun={function(){_this2.props.onsel(4)}} clsname={this.props.tabindex == 4?"weui_tabbar_item weui_bar_item_on":"weui_tabbar_item"}
+                <InkButton showanimate={false} id="tababoutme" clickfun={function(){_this2.props.onsel(4)}} clsname={this.props.tabindex == 4?"weui_tabbar_item weui_bar_item_on":"weui_tabbar_item"}
                  value= {value4}
                 />
             </div>;

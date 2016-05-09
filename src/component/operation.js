@@ -56,7 +56,8 @@ class Operation extends Component {
     setTimeout(function(){_this.setState({showdevicetext:true});},_starttexttime);
     setTimeout(function(){_this.setState({showtemptext:true});},_starttexttime);
     setTimeout(function(){_this.setState({showservertext:true});},_starttexttime + 100);
-    setTimeout(function(){_this.setState({showbackuptext:true});_this.updatepiecharts();},_starttexttime + 200);
+    setTimeout(function(){_this.setState({showbackuptext:true});},_starttexttime + 200);
+    setTimeout(function(){_this.updatepiecharts();},_starttexttime + 300);
 
     setTimeout(function(){Store.setfirstlogin(false);},_animatetime + 1450);
   }
@@ -69,43 +70,30 @@ class Operation extends Component {
         countChart = echarts.init(document.getElementById('devicechart'));
      }
      var countoption = {
-       legend: {
-               orient: 'vertical',
-               x: 'left',
-               data:['离线','报警','报修']
-           },
-           series: [
-               {
-                   name:'访问来源',
-                   type:'pie',
-                   radius: ['10%', '30%'],
-                   avoidLabelOverlap: false,
-                   roseType:'area',
-                   label: {
-                       normal: {
-                           show: false,
-                           position: 'center'
-                       },
-                       emphasis: {
-                           show: false,
-                           textStyle: {
-                               fontSize: '30',
-                               fontWeight: 'bold'
-                           }
-                       }
-                   },
-                   labelLine: {
-                       normal: {
-                           show: false
-                       }
-                   },
-                   data:[
-                       {value:9, name:'离线'},
-                       {value:7, name:'报警'},
-                       {value:8, name:'报修'}
-                   ]
-               }
-           ]
+       series: [
+                      {
+                          name:'异常设备',
+                          type:'pie',
+                          radius: ['0%', '70%'],
+                          avoidLabelOverlap: false,
+                          center:['35%','50%'],
+                          label: {
+                              normal: {
+                                  show: false
+                              },
+                          },
+                          labelLine: {
+                              normal: {
+                                  show: false
+                              }
+                          },
+                          data:[
+                              {value:6, name:'离线'},
+                              {value:5, name:'报警'},
+                              {value:4, name:'报修'}
+                          ]
+                      }
+                  ]
        }
      countChart.setOption(countoption);
   }
@@ -155,13 +143,16 @@ class Operation extends Component {
               <div id="deviceblock" onClick={this.onClickdevice} style={{top:this.state.showdeviceblock1 || !firstlogin ?'47%':'100%',
                 bottom:this.state.showdeviceblock2 || !firstlogin?'175px':'55px'
                 }}>
-                <div className="blockpanel" style={{opacity:this.state.showdevicetext?'1':'0'
-                  }}>
+                <div className="blockpanel" style={{opacity:this.state.showdevicetext?'1':'0'}}>
                   <p className="blockpanel_title">安防设备</p>
-                  <p id="devicepanel_title1">设备总数：</p>
-                  <p id="devicepanel_percent">1025</p>
+                  {/*<p id="devicepanel_title1">设备总数：</p>*/}
+                  <p id="devicepanel_percent">725</p>
                   <div id="devicepanel_line"></div>
-                  <div id="devicechart"></div>
+                  <div id="devicechart">
+                  </div>
+                  <div id="devicechart_number" style={{transform:this.state.showdevicetext?'scale(0.35)':'scale(0)'}}>
+                    <p>15</p>
+                  </div>
                 </div>
               </div>
               <div id="serverblock" onClick={this.onClickserver} style={{bottom:this.state.showserverblock || !firstlogin ?'55px':'100%',

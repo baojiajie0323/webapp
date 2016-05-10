@@ -21,6 +21,7 @@ class Operation extends Component {
       showtempblock:false,
       showbackupblock:false,
       showdevicetext:false,
+      showdevicetext1:false,
       showservertext:false,
       showtemptext:false,
       showbackuptext:false,
@@ -58,6 +59,7 @@ class Operation extends Component {
     setTimeout(function(){_this.setState({showservertext:true});},_starttexttime + 100);
     setTimeout(function(){_this.setState({showbackuptext:true});},_starttexttime + 200);
     setTimeout(function(){_this.updatepiecharts();},_starttexttime + 300);
+    setTimeout(function(){_this.setState({showdevicetext1:true});},_starttexttime + 500);
 
     setTimeout(function(){Store.setfirstlogin(false);},_animatetime + 1450);
   }
@@ -76,7 +78,7 @@ class Operation extends Component {
                           type:'pie',
                           radius: ['0%', '70%'],
                           avoidLabelOverlap: false,
-                          center:['35%','50%'],
+                          center:['30%','50%'],
                           label: {
                               normal: {
                                   show: false
@@ -152,6 +154,20 @@ class Operation extends Component {
                   </div>
                   <div id="devicechart_number" style={{transform:this.state.showdevicetext?'scale(0.35)':'scale(0)'}}>
                     <p>15</p>
+                  </div>
+                  <div id="devicechart_info" style={{transform:this.state.showdevicetext1?'scale(1,1)':'scale(1,0)'}}>
+                    <div className="devicechart_info_item">
+                      <p className="devicechart_info_item_text1">离线</p>
+                      <p className="devicechart_info_item_text2 colortext1">6</p>
+                    </div>
+                    <div className="devicechart_info_item">
+                      <p className="devicechart_info_item_text1">报警</p>
+                      <p className="devicechart_info_item_text2 colortext2">5</p>
+                    </div>
+                    <div className="devicechart_info_item">
+                      <p className="devicechart_info_item_text1">报修</p>
+                      <p className="devicechart_info_item_text2 colortext3">4</p>
+                    </div>
                   </div>
                 </div>
               </div>

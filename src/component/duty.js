@@ -471,7 +471,7 @@ class Duty extends Component {
                 <div className="weui_mask"></div>
                 <div className="weui_dialog">
                     <div className="weui_dialog_hd"><strong className="weui_dialog_title">手动点名</strong></div>
-                    <div className="weui_dialog_bd">下次自动点名时间为11:00<br />您确定要立刻开始点名吗？</div>
+                    <div className="weui_dialog_bd">确定要立刻开始点名吗？</div>
                     <div className="weui_dialog_ft">
                         <a href="javascript:;" className="weui_btn_dialog default">取消</a>
                         <a href="javascript:;" onClick={this.onClickCall} className="weui_btn_dialog primary">确定</a>

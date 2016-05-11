@@ -15,6 +15,34 @@
   right: 0;
 }
 
+#servercontainer{
+  position: absolute;
+  width: 100%;
+  top: 70px;
+  bottom: 0;
+  scroll: auto;
+  overflow: scroll;
+}
+
+.serveroperate{
+  position: absolute;
+  height: 90px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0 0 4px 4px;
+  background-color: rgba(0,0,0,0.9);
+  display: flex;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.serveroperate_block{
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+
 .valuepanel{
   position: absolute;
   height: 90px;
@@ -23,11 +51,125 @@
   right: 0;
   border-radius: 0 0 4px 4px;
   background-color: white;
+  display: flex;
+}
+
+.valuepanel_block{
+  margin-left: 1%;
+  width: 32%;
+  height: 100%;
+}
+
+.block_value{
+  text-align: center;
+  color: rgb(37, 37, 37);
+  font-size: 25px;
+  font-weight: bold;
+  height: 55px;
+  line-height: 66px;
+  transform: scale(0.8,1);
+}
+
+.block_key{
+  text-align: center;
+  font-size: 13px;
+}
+
+.operateIcon{
+  text-align: center;
+  height: 55px;
+  line-height: 66px;
+  font-size: 36px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events:none;
+}
+
+.operate_key{
+  position: absolute;
+  text-align: center;
+  font-size: 13px;
+  width: 100%;
+  top: 60px;
+  color: rgb(242, 233, 233);
+  pointer-events:none;
+}
+
+.badge_high{
+  background-image: url("../img/arrow_high.png");
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 24px;
+  top: 8px;
+  position: absolute;
+}
+
+.badge_alarm{
+  background-image: url("../img/alarm.png");
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 24px;
+  top: 8px;
+  position: absolute;
+}
+
+.operateimage{
+  background-image: url("../img/more.png");
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 24px;
+  left: 13px;
+  top:4px;
+  position: absolute;
+  pointer-events:none;
+}
+
+.servername{
+  position: absolute;
+  margin: 2px 0 0 14px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.servertimeicon{
+  font-size: 13px;
+}
+
+.servertime{
+  position: absolute;
+  margin: 30px 0 0 15px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.serveroperatebtn{
+  position: absolute;
+  right: 10px;
+  width: 50px;
+  height: 32px;
 }
 
 .serverbkcolor1{
-  background-color:rgb(242,115,106);
+  background-color:rgb(235,79,56);
 }
 .serverbkcolor2{
-  background-color:rgb(0,189,203);
+  background-color:#14BA7B;
+}
+.serverbkcolor3{
+  background-color:rgb(131,118,116);
+}
+
+.servercolor1{
+  color:rgb(235,79,56);
+}
+.servercolor2{
+  color:#14BA7B;
+}
+.servercolor3{
+  color:rgb(131,118,116);
 }

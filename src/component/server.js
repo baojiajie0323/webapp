@@ -4,20 +4,43 @@ import './App.less';
 import './server.less';
 
 const echarts = require('echarts');
-
 const Store = require('../flux/stores/vssStore');
+
+const data1 = [15,20,22,90,50,30,40,25,
+      15,60,80,90,50,70,55,56,
+      52,10,8,7,18,30,40,48,
+    ];
+
+const data2 = [52,10,8,7,18,30,40,48,
+      15,20,22,90,50,30,40,25,
+      15,60,80,90,50,70,55,56,
+    ];
+
+const data3 = [52,10,8,48,22,40,55,56,
+      15,20,25,70,7,18,30,40,
+      15,90,50,30,60,80,90,50,
+    ];
 
 class Server extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showcspoperate:false,
+      showchatoperate:false,
+      showintoperate:false,
+    }
     this.onClickReturn = this.onClickReturn.bind(this);
+    this.onClickcspbtn = this.onClickcspbtn.bind(this);
+    this.onClickchatbtn = this.onClickchatbtn.bind(this);
+    this.onClickintbtn = this.onClickintbtn.bind(this);
   }
   componentDidMount(){
-    this.updatelinecharts('cspchart');
-    this.updatelinecharts('chatchart');
+    this.updatelinecharts('cspchart',data1);
+    this.updatelinecharts('chatchart',data2);
+    this.updatelinecharts('intchart',data3);
     Store.addChangeListener(Store.notifytype.backbutton,this.onClickReturn);
   }
-  updatelinecharts(element){
+  updatelinecharts(element,data){
     var doc = document.getElementById(element);
     if(!doc)
       return;
@@ -69,17 +92,14 @@ class Server extends Component {
                   name:'邮件营销',
                   type:'line',
                   stack: '总量',
-                  data:[15,20,22,90,50,30,40,25,
-                        15,60,80,90,50,70,55,56,
-                        52,10,8,7,18,30,40,48,
-                      ],
+                  data:data,
                   lineStyle:{
                     normal:{
                       color:'#fff'
                     }
                   },
                   showSymbol:false,
-                  //smooth:true,
+                  smooth:true,
               },
           ]
        }
@@ -87,6 +107,21 @@ class Server extends Component {
   }
   onClickReturn(){
     this.props.returnfun();
+  }
+  onTouchStartOperbtn(e){
+    $(e.target).css("background","rgba(0,0,0,0.2)");
+  }
+  onTouchEndOperbtn(e){
+    $(e.target).css("background","");
+  }
+  onClickcspbtn(){
+    this.setState({showcspoperate:!this.state.showcspoperate});
+  }
+  onClickchatbtn(){
+    this.setState({showchatoperate:!this.state.showchatoperate});
+  }
+  onClickintbtn(){
+    this.setState({showintoperate:!this.state.showintoperate});
   }
   render() {
     return <div className="subpagefullscreen">
@@ -98,16 +133,105 @@ class Server extends Component {
                 <div className="titlebar_line"></div>
                 <p className="titlebar_title">系统后台</p>
               </div>
-              <div className="serverpanel serverbkcolor1">
-                <div id="cspchart" className="valuechart">
+              <div id="servercontainer">
+                <div className="serverpanel serverbkcolor1">
+                  <p className="servername">CSP通用综合安防系统</p>
+                  <div className="serveroperatebtn" onTouchStart={this.onTouchStartOperbtn} onTouchEnd={this.onTouchEndOperbtn} onClick={this.onClickcspbtn}>
+                    <i className="operateimage"></i>
+                  </div>
+                  <span className="servertime"><Icon type="clock-circle-o" className="servertimeicon" /> 21天10小时</span>
+                  <div id="cspchart" className="valuechart">
+                  </div>
+                  <div className="valuepanel">
+                    <div className="valuepanel_block">
+                      <p className="block_value">26%<i className="badge_high"></i></p>
+                      <p className="block_key">CPU使用率</p>
+                    </div>
+                    <div className="valuepanel_block">
+                      <p className="block_value">657MB<i className="badge_high"></i></p>
+                      <p className="block_key">运行内存</p>
+                    </div>
+                    <div className="valuepanel_block">
+                      <p className="block_value">200GB</p>
+                      <p className="block_key">剩余空间</p>
+                    </div>
+                  </div>
+                  <div className="serveroperate" style={{height:this.state.showcspoperate?'90px':'0'}}>
+                    <div className="serveroperate_block" >
+                      <Icon className="operateIcon servercolor1" type="poweroff" />
+                      <p className="operate_key">远程重启</p>
+                    </div>
+                    <div className="serveroperate_block">
+                      <Icon className="operateIcon servercolor1" type="phone" />
+                      <p className="operate_key">负责人：张工</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="valuepanel">
+                <div className="serverpanel serverbkcolor2">
+                  <p className="servername">监所谈话业务系统</p>
+                  <div className="serveroperatebtn" onTouchStart={this.onTouchStartOperbtn} onTouchEnd={this.onTouchEndOperbtn} onClick={this.onClickchatbtn}>
+                    <i className="operateimage"></i>
+                  </div>
+                  <span className="servertime"><Icon type="clock-circle-o" className="servertimeicon" /> 13天2小时</span>
+                  <div id="chatchart" className="valuechart">
+                  </div>
+                  <div className="valuepanel">
+                    <div className="valuepanel_block">
+                      <p className="block_value">5%</p>
+                      <p className="block_key">CPU使用率</p>
+                    </div>
+                    <div className="valuepanel_block">
+                      <p className="block_value">122MB</p>
+                      <p className="block_key">运行内存</p>
+                    </div>
+                    <div className="valuepanel_block">
+                      <p className="block_value">3GB<i className="badge_alarm"></i></p>
+                      <p className="block_key">剩余空间</p>
+                    </div>
+                  </div>
+                  <div className="serveroperate" style={{height:this.state.showchatoperate?'90px':'0'}}>
+                    <div className="serveroperate_block">
+                      <Icon className="operateIcon servercolor2" type="poweroff" />
+                      <p className="operate_key">远程重启</p>
+                    </div>
+                    <div className="serveroperate_block">
+                      <Icon className="operateIcon servercolor2" type="phone" />
+                      <p className="operate_key">负责人：张工</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="serverpanel serverbkcolor2">
-                <div id="chatchart" className="valuechart">
-                </div>
-                <div className="valuepanel">
+                <div className="serverpanel serverbkcolor2">
+                  <p className="servername">监所智能视频分析系统</p>
+                  <div className="serveroperatebtn" onTouchStart={this.onTouchStartOperbtn} onTouchEnd={this.onTouchEndOperbtn} onClick={this.onClickintbtn}>
+                    <i className="operateimage"></i>
+                  </div>
+                  <span className="servertime"><Icon type="clock-circle-o" className="servertimeicon" /> 44天15小时</span>
+                  <div id="intchart" className="valuechart">
+                  </div>
+                  <div className="valuepanel">
+                    <div className="valuepanel_block">
+                      <p className="block_value">10%</p>
+                      <p className="block_key">CPU使用率</p>
+                    </div>
+                    <div className="valuepanel_block">
+                      <p className="block_value">352MB</p>
+                      <p className="block_key">运行内存</p>
+                    </div>
+                    <div className="valuepanel_block">
+                      <p className="block_value">103GB</p>
+                      <p className="block_key">剩余空间</p>
+                    </div>
+                  </div>
+                  <div className="serveroperate" style={{height:this.state.showintoperate?'90px':'0'}}>
+                    <div className="serveroperate_block">
+                      <Icon className="operateIcon servercolor2" type="poweroff" />
+                      <p className="operate_key">远程重启</p>
+                    </div>
+                    <div className="serveroperate_block">
+                      <Icon className="operateIcon servercolor2" type="phone" />
+                      <p className="operate_key">负责人：张工</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

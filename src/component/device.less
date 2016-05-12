@@ -4,23 +4,124 @@
   top: 70px;
   bottom: 0;
   scroll: auto;
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .devicepanel{
   position: relative;
-  height: 90px;
+  height: 65px;
   margin: 1px 0 0 0;
-  background-color: white;
-  border-radius: 4px;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  background-color: #3d414a;
+  overflow-x: auto;
+}
+
+.devicestateline{
+  position: absolute;
+  height: 100%;
+  width: 5px;
+}
+
+.devicetext1{
+  position: absolute;
+  left: 5px;
+  text-align: center;
+  height: 65px;
+  line-height: 65px;
+  width: 48px;
+  /* bottom: 3px; */
+  font-size: 13px;
+  color: #999CA1;
+  pointer-events: none;
+}
+
+.devicetext2{
+  position: absolute;
+  left: 53px;
+  height: 65px;
+  width: 157px;
+  line-height: 65px;
+  font-size: 15px;
+  color: #ededed;
+  /* padding: 0 0 0 10px; */
+  text-align: center;
+  background-color: rgb(58, 62, 71);
+  pointer-events: none;
+}
+
+.devicetext3{
+  position: absolute;
+  /* left: 10px; */
+  text-align: center;
+  right: 0;
+  /* top: 10px; */
+  width: 40px;
+  height: 65px;
+  line-height: 65px;
+  font-size: 13px;
+  font-weight: bold;
+  /* color: #6C6F74; */
+  pointer-events: none;
+}
+
+.devicetext4{
+  position: absolute;
+  left: 211px;
+  text-align: center;
+  height: 65px;
+  line-height: 65px;
+  width: 60px;
+  /* bottom: 3px; */
+  font-size: 13px;
+  color: #999CA1;
+  pointer-events: none;
+}
+
+.devicetext5{
+  position: absolute;
+  left: 271px;
+  text-align: center;
+  height: 65px;
+  line-height: 65px;
+  width: 48px;
+  /* bottom: 3px; */
+  font-size: 13px;
+  color: #999CA1;
+  pointer-events: none;
+}
+
+.devicemore1{
+  position: absolute;
+  left: 100%;
+  text-align: center;
+  height: 65px;
+  line-height: 65px;
+  width: 68px;
+  /* bottom: 3px; */
+  font-size: 13px;
+  color: #999CA1;
+  pointer-events: none;
+}
+
+.devicetype_video{
+  //background-image: url("../img/video.png");
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 20px;
+  left: 14px;
+  top: 8px;
+  /* bottom: 5px; */
+  position: absolute;
 }
 
 .devicebkcolor1{
   background-color:rgb(235,79,56);
 }
 .devicebkcolor2{
-  background-color:#14BA7B;
+  background-color:rgb(32,142,165);
 }
 .devicebkcolor3{
   background-color:rgb(131,118,116);
@@ -30,7 +131,7 @@
   color:rgb(235,79,56);
 }
 .devicecolor2{
-  color:#14BA7B;
+  color:rgb(32,142,165);
 }
 .devicecolor3{
   color:rgb(131,118,116);

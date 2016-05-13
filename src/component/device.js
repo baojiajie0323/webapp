@@ -4,6 +4,7 @@ import './App.less';
 import './device.less';
 
 const Store = require('../flux/stores/vssStore');
+const IScroll = require('./iscroll.js');
 
 var datalist = [
   {name:'一监区东南角枪机',type:'智能',area:'一监区',company:'科达',state:'警报',news:{time:'1分钟前',events:'产生智能警戒线告警'},color:1},
@@ -25,31 +26,56 @@ class Device extends Component {
   constructor(props) {
     super(props);
     this.onClickReturn = this.onClickReturn.bind(this);
-    this.onDevicePanelTouchEnd = this.onDevicePanelTouchEnd.bind(this);
   }
   componentDidMount(){
     Store.addChangeListener(Store.notifytype.backbutton,this.onClickReturn);
+    this.initscroll();
+  }
+  initscroll(){
+    if(document.getElementById('devicecontainer') != null){
+        var deviceScroll = new IScroll('#devicecontainer', { mouseWheel: true ,tap: true});
+    }
+    document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+    var scrollmapobj = {};
+    var scrolldisobj = {};
+    var lilist = document.getElementsByClassName('devicepanel');
+    for (let i = 0; i < lilist.length; i++) {
+      lilist[i].addEventListener('touchstart', function (e) {
+        scrollmapobj.i = e.touches[0].pageX;
+       }, false);
+      lilist[i].addEventListener('touchmove', function (e) {
+         var currentscrolldis = 0;
+         if(scrolldisobj.i != undefined){
+           currentscrolldis = scrolldisobj.i;
+         }
+         var scrolldis = e.touches[0].pageX - scrollmapobj.i + currentscrolldis;
+         scrolldisobj.i = scrolldis;
+         $(e.target).css("transform","translate("+scrolldis+"px)");
+        }, false);
+      lilist[i].addEventListener('touchend', function (e) {
+        console.log('touchend:',e);
+       }, false);
+    }
   }
   onClickReturn(){
     this.props.returnfun();
-  }
-  onDevicePanelTouchEnd(e){
-    $(e.target).scrollLeft(0);
   }
   render() {
     var dataelelist = [];
     var _this = this;
     datalist.map(function(data){
 
-      var deviceele = <div className="devicepanel" onTouchEnd={_this.onDevicePanelTouchEnd} >
+      var deviceele = <div className="devicepanel" >
                         <div className={"devicestateline devicebkcolor" + data.color}></div>
                         <p className="devicetext1">{data.type}</p>
                         <p className="devicetext2">{data.name}</p>
                         <i className={data.typeicon} />
-                        <p className={"devicetext3 devicecolor" + data.color}>{data.state}</p>
                         <p className="devicetext4">{data.area}</p>
                         <p className="devicetext5">{data.company}</p>
+                        <p className={"devicetext3 devicecolor" + data.color}>{data.state}</p>
                         <p className="devicemore1">{data.company}</p>
+                        <p className="devicemore2">{data.company}</p>
                       </div>;
       dataelelist.push(deviceele);
     })
@@ -63,7 +89,11 @@ class Device extends Component {
                 <p className="titlebar_title">安防设备</p>
               </div>
               <div id="devicecontainer">
-                {dataelelist}
+                <div className="scroller">
+                  <ul>
+                  {dataelelist}
+                  </ul>
+                </div>
               </div>
             </div>
            </div>;

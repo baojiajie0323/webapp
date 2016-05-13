@@ -4,102 +4,96 @@
   top: 70px;
   bottom: 0;
   scroll: auto;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.deviceanimate{
+  transition: all 0.3s ease;
 }
 
 .devicepanel{
   position: relative;
   height: 65px;
   margin: 1px 0 0 0;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
   background-color: #3d414a;
-  overflow-x: auto;
+  display: flex;
 }
 
 .devicestateline{
-  position: absolute;
   height: 100%;
   width: 5px;
 }
 
 .devicetext1{
-  position: absolute;
-  left: 5px;
   text-align: center;
-  height: 65px;
+  height: 100%;
   line-height: 65px;
   width: 48px;
-  /* bottom: 3px; */
   font-size: 13px;
   color: #999CA1;
   pointer-events: none;
 }
 
 .devicetext2{
-  position: absolute;
-  left: 53px;
-  height: 65px;
-  width: 157px;
+  height: 100%;
+  width: e("calc(100% - 210px)");
   line-height: 65px;
   font-size: 15px;
   color: #ededed;
-  /* padding: 0 0 0 10px; */
   text-align: center;
   background-color: rgb(58, 62, 71);
   pointer-events: none;
 }
 
-.devicetext3{
-  position: absolute;
-  /* left: 10px; */
-  text-align: center;
-  right: 0;
-  /* top: 10px; */
-  width: 40px;
-  height: 65px;
-  line-height: 65px;
-  font-size: 13px;
-  font-weight: bold;
-  /* color: #6C6F74; */
-  pointer-events: none;
-}
-
 .devicetext4{
-  position: absolute;
-  left: 211px;
   text-align: center;
-  height: 65px;
+  height: 100%;
   line-height: 65px;
   width: 60px;
-  /* bottom: 3px; */
   font-size: 13px;
   color: #999CA1;
   pointer-events: none;
 }
 
 .devicetext5{
-  position: absolute;
-  left: 271px;
   text-align: center;
-  height: 65px;
+  height: 100%;
   line-height: 65px;
   width: 48px;
-  /* bottom: 3px; */
   font-size: 13px;
   color: #999CA1;
   pointer-events: none;
 }
 
+.devicetext3{
+  text-align: center;
+  width: 40px;
+  height: 100%;
+  line-height: 65px;
+  font-size: 13px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
 .devicemore1{
   position: absolute;
-  left: 100%;
+  left:100%;
   text-align: center;
-  height: 65px;
+  height: 100%;
   line-height: 65px;
   width: 68px;
-  /* bottom: 3px; */
+  font-size: 13px;
+  color: #999CA1;
+  pointer-events: none;
+}
+
+.devicemore2{
+  position: absolute;
+  text-align: center;
+  left: e("calc(100% + 68px)");
+  line-height: 65px;
+  width: 68px;
   font-size: 13px;
   color: #999CA1;
   pointer-events: none;

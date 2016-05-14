@@ -1,15 +1,25 @@
 #devicecontainer{
   position: absolute;
   width: 100%;
-  top: 70px;
+  top: 111px;
   bottom: 0;
   scroll: auto;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
+.weui_search_bar{
+  background-color: #373B42;
+  padding: 8px 0px;
+}
+
+.weui_search_text{
+  padding: 2px 0 0 0;
+  background: #f3f3f3;
+}
+
 .deviceanimate{
-  transition: all 0.3s ease;
+  transition: all 0.1s linear;
 }
 
 .devicepanel{
@@ -78,25 +88,27 @@
 
 .devicemore1{
   position: absolute;
-  left:100%;
+  left: 100%;
   text-align: center;
   height: 100%;
   line-height: 65px;
-  width: 68px;
-  font-size: 13px;
-  color: #999CA1;
+  width: 90px;
+  font-size: 20px;
+  color: white;
   pointer-events: none;
+  background-color: #57c5f7;
 }
 
 .devicemore2{
   position: absolute;
   text-align: center;
-  left: e("calc(100% + 68px)");
+  left: e("calc(100% + 90px)");
   line-height: 65px;
-  width: 68px;
-  font-size: 13px;
-  color: #999CA1;
+  width: 90px;
+  font-size: 20px;
+  color: #FFF900;
   pointer-events: none;
+  background-color: #2baee9;
 }
 
 .devicetype_video{

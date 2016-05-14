@@ -7,7 +7,7 @@ class Footbar extends Component {
   render() {
     var _this2 = this;
     var value1 = [<div className="weui_tabbar_icon">
-           <Icon type="appstore" />
+           <Icon type="line-chart" />
        </div>,
        <p className="weui_tabbar_label">运维</p>
      ];

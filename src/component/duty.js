@@ -392,7 +392,7 @@ class Duty extends Component {
     return <div className="weui_tab_bd" style={{backgroundColor:'black'}}>
             <div className="titlebar">
               <p className="titlebar_title">值班管理</p>
-              <InkButton id="callbtn" clickfun={this.onClickQuery} clsname="titlebar_iconpanel" value={callbtn} />
+              <InkButton id="callbtn" clickfun={this.onClickQuery} showanimate={false} clsname="titlebar_iconpanel" value={callbtn} />
             </div>
             <div id="dutycharts" onMouseDown={this.cancelshowduty} style={{marginTop:marginTop}}>
               <div id="dutycharts_mask" style={{width:100 - percent+'%'}}></div>

@@ -27,10 +27,26 @@ class Device extends Component {
   constructor(props) {
     super(props);
     this.onClickReturn = this.onClickReturn.bind(this);
-    this.onClickFliter = this.onClickFliter.bind(this);
     this.state = {
-      showfliter:false
+      checkall:true,
+      checkvideo:false,
+      checkdoor:false,
+      checkspeak:false,
+      checkalert:false,
+      checkpatrol:false,
+      checkboard:false,
+      checkbayonet:false,
+      checkhighgrid:false,
     }
+    this.onClickAll = this.onClickAll.bind(this);
+    this.onClickVideo = this.onClickVideo.bind(this);
+    this.onClickDoor = this.onClickDoor.bind(this);
+    this.onClickSpeak = this.onClickSpeak.bind(this);
+    this.onClickAlert = this.onClickAlert.bind(this);
+    this.onClickPatrol = this.onClickPatrol.bind(this);
+    this.onClickBoard = this.onClickBoard.bind(this);
+    this.onClickBayonet = this.onClickBayonet.bind(this);
+    this.onClickHighgrid = this.onClickHighgrid.bind(this);
   }
   componentDidMount(){
     Store.addChangeListener(Store.notifytype.backbutton,this.onClickReturn);
@@ -38,9 +54,22 @@ class Device extends Component {
   }
   initscroll(){
     if(document.getElementById('devicecontainer') != null){
-        var deviceScroll = new IScroll('#devicecontainer', { mouseWheel: true ,tap: true});
+        new IScroll('#devicecontainer', { mouseWheel: true ,tap: true});
+    }
+    if(document.getElementById('flitercontainer') != null){
+        new IScroll('#flitercontainer', { mouseWheel: true ,scrollX: true, scrollY: false,tap: true});
     }
     document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+    document.getElementById('fliter_checkall').addEventListener('tap',this.onClickAll);
+    document.getElementById('fliter_checkvideo').addEventListener('tap',this.onClickVideo);
+    document.getElementById('fliter_checkdoor').addEventListener('tap',this.onClickDoor);
+    document.getElementById('fliter_checkspeak').addEventListener('tap',this.onClickSpeak);
+    document.getElementById('fliter_checkalert').addEventListener('tap',this.onClickAlert);
+    document.getElementById('fliter_checkpatrol').addEventListener('tap',this.onClickPatrol);
+    document.getElementById('fliter_checkboard').addEventListener('tap',this.onClickBoard);
+    document.getElementById('fliter_checkbayonet').addEventListener('tap',this.onClickBayonet);
+    document.getElementById('fliter_checkhighgrid').addEventListener('tap',this.onClickHighgrid);
 
     var scrollmapobj = new Map();
     var scrolldistmpobj = new Map();
@@ -105,13 +134,36 @@ class Device extends Component {
   onClickReturn(){
     this.props.returnfun();
   }
-  onClickFliter(){
-    this.setState({
-      showfliter:!this.state.showfliter
-    })
+  onClickAll(){
+    this.setState({checkall:!this.state.checkall});
+  }
+  onClickVideo(){
+    this.setState({checkvideo:!this.state.checkvideo});
+  }
+  onClickDoor(){
+    this.setState({checkdoor:!this.state.checkdoor});
+  }
+  onClickSpeak(){
+    this.setState({checkspeak:!this.state.checkspeak});
+  }
+  onClickAlert(){
+    this.setState({checkalert:!this.state.checkalert});
+  }
+  onClickPatrol(){
+    this.setState({checkpatrol:!this.state.checkpatrol});
+  }
+  onClickBoard(){
+    this.setState({checkboard:!this.state.checkboard});
+  }
+  onClickBayonet(){
+    this.setState({checkbayonet:!this.state.checkbayonet});
+  }
+  onClickHighgrid(){
+    this.setState({checkhighgrid:!this.state.checkhighgrid});
   }
   render() {
     var dataelelist = [];
+    dataelelist.push(<div id="prespace"></div>);
     var _this = this;
     datalist.map(function(data){
 
@@ -129,7 +181,6 @@ class Device extends Component {
       dataelelist.push(deviceele);
     })
 
-    var fliterbtn = <Icon type="appstore" />;
     return <div className="subpagefullscreen">
             <div id="device">
               <div className="titlebar">
@@ -138,7 +189,6 @@ class Device extends Component {
                 </div>
                 <div className="titlebar_line"></div>
                 <p className="titlebar_title">安防设备</p>
-                <InkButton id="fliterbtn" clickfun={this.onClickFliter} showanimate={false} clsname="titlebar_iconpanel" value={fliterbtn} />
               </div>
               <div className="weui_search_bar" id="search_bar">
                   <form className="weui_search_outer">
@@ -154,11 +204,30 @@ class Device extends Component {
                   </form>
                   <a href="javascript:" className="weui_search_cancel" id="search_cancel">取消</a>
               </div>
-              {this.state.showfliter?
-                <div>
+                <div id="flitercontainer" className="wrapper">
+                  <div className="scroller_hor">
+                    <ul>
+                     <div id="fliter_checkall" onClick={this.onClickAll} className={"fliterblock " + (this.state.checkall?"flitercheck":"")}>
+                     {this.state.checkall?<Icon type="check" className="flitercheckicon"/>:null}全部</div>
+                     <div id="fliter_checkvideo" onClick={this.onClickVideo} className={"fliterblock " + (this.state.checkvideo?"flitercheck":"")}>
+                     {this.state.checkvideo?<Icon type="check" className="flitercheckicon"/>:null}摄像头</div>
+                     <div id="fliter_checkdoor" onClick={this.onClickDoor} className={"fliterblock " + (this.state.checkdoor?"flitercheck":"")}>
+                     {this.state.checkdoor?<Icon type="check" className="flitercheckicon"/>:null}门禁</div>
+                     <div id="fliter_checkspeak" onClick={this.onClickSpeak} className={"fliterblock " + (this.state.checkspeak?"flitercheck":"")}>
+                     {this.state.checkspeak?<Icon type="check" className="flitercheckicon"/>:null}对讲</div>
+                     <div id="fliter_checkalert" onClick={this.onClickAlert} className={"fliterblock " + (this.state.checkalert?"flitercheck":"")}>
+                     {this.state.checkalert?<Icon type="check" className="flitercheckicon"/>:null}报警</div>
+                     <div id="fliter_checkpatrol" onClick={this.onClickPatrol} className={"fliterblock " + (this.state.checkpatrol?"flitercheck":"")}>
+                     {this.state.checkpatrol?<Icon type="check" className="flitercheckicon"/>:null}巡更</div>
+                     <div id="fliter_checkboard" onClick={this.onClickBoard} className={"fliterblock " + (this.state.checkboard?"flitercheck":"")}>
+                     {this.state.checkboard?<Icon type="check" className="flitercheckicon"/>:null}广播</div>
+                     <div id="fliter_checkbayonet" onClick={this.onClickBayonet} className={"fliterblock " + (this.state.checkbayonet?"flitercheck":"")}>
+                     {this.state.checkbayonet?<Icon type="check" className="flitercheckicon"/>:null}出入口</div>
+                     <div id="fliter_checkhighgrid" onClick={this.onClickHighgrid} className={"fliterblock " + (this.state.checkhighgrid?"flitercheck":"")}>
+                     {this.state.checkhighgrid?<Icon type="check" className="flitercheckicon"/>:null}电网</div>
+                    </ul>
+                  </div>
                 </div>
-                :null
-              }
               <div id="devicecontainer">
                 <div className="scroller">
                   <ul>

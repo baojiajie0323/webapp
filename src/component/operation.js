@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { QueueAnim } from 'antd';
+import { QueueAnim,Badge } from 'antd';
 import './operation.less';
 
 const Store = require("../flux/stores/vssStore");
@@ -36,10 +36,9 @@ class Operation extends Component {
     var _starttexttime = 0;
 
     setTimeout(function(){_this.setState({showdevicetext:true});},_starttexttime);
-    setTimeout(function(){_this.setState({showtemptext:true});},_starttexttime);
-    setTimeout(function(){_this.setState({showservertext:true});},_starttexttime + 100);
-    setTimeout(function(){_this.setState({showbackuptext:true});},_starttexttime + 200);
-    setTimeout(function(){_this.setState({showdevicetext1:true});},_starttexttime + 500);
+    setTimeout(function(){_this.setState({showtemptext:true});},_starttexttime + 100);
+    setTimeout(function(){_this.setState({showservertext:true});},_starttexttime + 200);
+    setTimeout(function(){_this.setState({showbackuptext:true});},_starttexttime + 300);
   }
   onClickbackup(){
     this.setState({showbackup:true});
@@ -85,19 +84,20 @@ class Operation extends Component {
               <div id="stateblock">
               </div>
               <div id="operateinfo">
+                <p id="operationinfo_title">监所运维数据统计</p>
                 <div className="operateblock" onClick={this.onClickdevice} >
                   <div className="blockpanel" style={{opacity:this.state.showdevicetext?'1':'0',
                     transform:this.state.showservertext?'scale(1)':'scale(0.9)'}}>
-                    <p className="blockpanel_title">设备</p>
-                    <p className="blockpanel_value">725</p>
+                    <p className="blockpanel_title"><Badge dot>设备</Badge></p>
+                    <p className="blockpanel_value">725<span className="blockpanel_value_small">个</span></p>
                   </div>
                 </div>
                 <div className="operateline"></div>
                 <div className="operateblock" onClick={this.onClickserver} >
                   <div className="blockpanel" style={{opacity:this.state.showservertext?'1':'0',
                     transform:this.state.showservertext?'scale(1)':'scale(0.9)'}}>
-                    <p className="blockpanel_title">服务</p>
-                    <p className="blockpanel_value">4<span className="blockpanel_value_small"></span></p>
+                    <p className="blockpanel_title"><Badge dot>服务</Badge></p>
+                    <p className="blockpanel_value">4<span className="blockpanel_value_small">个</span></p>
                   </div>
                 </div>
                 <div className="operateblock" onClick={this.onClicktemp} >
@@ -108,11 +108,11 @@ class Operation extends Component {
                   </div>
                 </div>
                 <div className="operateline"></div>
-                <div className="operateblock" >
+                <div className="operateblock" onClick={this.onClickbackup}>
                   <div className="blockpanel" style={{opacity:this.state.showbackuptext?'1':'0',
                     transform:this.state.showbackuptext?'scale(1)':'scale(0.9)'}}>
                     <p className="blockpanel_title">备份</p>
-                    <p className="blockpanel_value">1<span className="blockpanel_value_small">天前</span></p>
+                    <p className="blockpanel_value">1<span className="blockpanel_value_small">天</span></p>
                   </div>
                 </div>
               </div>

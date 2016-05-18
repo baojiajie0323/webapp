@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.less';
+import './duty.less';
 
 import {Icon,Progress  } from 'antd';
 const ProgressCircle = Progress.Circle;
@@ -44,11 +45,11 @@ class Duty extends Component {
             _this.currentprisonsel = this;
             currentprisonsel = i;
             _this.setState({showdutyinfo:true});
-            this.style.background = 'rgb(55,75,111)'
+            this.style.background = 'white'
           }else{
             _this.setState({showdutyinfo:false});
             _this.currentprisonsel = null;
-            this.style.background = 'rgb(42,55,79)';
+            this.style.background = 'rgb(204,204,204)';
           }
        }, false);
     }
@@ -242,6 +243,13 @@ class Duty extends Component {
   }
   onDutyChange(){
     this.setState({dutyinfo:Store.getdutyinfo()});
+
+    if(!this.isCalling()){
+      $('#toast').show();
+      setTimeout(function () {
+        $('#toast').hide();
+      }, 2000);
+    }
   }
   cancelshowduty(){
     if(this.currentprisonsel != null){
@@ -367,7 +375,7 @@ class Duty extends Component {
             prisoninfo.prisonercount.jshj + prisoninfo.prisonercount.thcs;
 
         if(count > 0){
-          prisoncount = <p className="li_prison_count" style={{color:'white'}}>{count}<span className="ren">人</span></p>
+          prisoncount = <p className="li_prison_count" style={{color:'black'}}>{count}<span className="ren">人</span></p>
           maskheight = '0';
         }
       }
@@ -381,11 +389,6 @@ class Duty extends Component {
     }
 
     var percent = Store.getvalidprison()*100/prisonCount;
-    var progressleft = '-' + (100 - Store.getvalidprison()*100/prisonCount) + '%';
-    var progressopacity = 1;
-    if(Store.getvalidprison() == prisonCount){
-      progressopacity = 0;
-    }
 
     var callbtn = <Icon type="calendar" />;
 
@@ -395,11 +398,7 @@ class Duty extends Component {
               <InkButton id="callbtn" clickfun={this.onClickQuery} showanimate={false} clsname="titlebar_iconpanel" value={callbtn} />
             </div>
             <div id="dutycharts" onMouseDown={this.cancelshowduty} style={{marginTop:marginTop}}>
-              <div id="dutycharts_mask" style={{width:100 - percent+'%'}}></div>
-              {/*<div id="callprogress" style={{transform:'translate3d(calc('+progressleft+' + 4px)' +',0,0)',opacity:progressopacity}}>
-                <div id="callprogress_1"></div>
-                <div id="callprogress_2"></div>
-              </div>*/}
+              {bCalling?<div id="dutycharts_mask" style={{width:percent+'%'}}></div>:null}
               <div id="chartspanel_out"></div>
               <div id="chartspanel_in">
               </div>
@@ -490,6 +489,13 @@ class Duty extends Component {
                 </div>
                 <div className="weui_actionsheet_action">
                     <div className="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>
+                </div>
+            </div>
+            <div id="toast" style={{display: "none"}}>
+                <div className="weui_mask_transparent"></div>
+                <div className="weui_toast">
+                    <i className="weui_icon_toast"></i>
+                    <p className="weui_toast_content">点名完成</p>
                 </div>
             </div>
            </div>;

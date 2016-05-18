@@ -12,8 +12,11 @@ class Backup extends Component {
   }
   componentDidMount(){
     Store.addChangeListener(Store.notifytype.backbutton,this.onClickReturn);
-    $('#backup').append($('#backupsvg'));
-    this.ready();
+    var _this = this;
+    setTimeout(function(){
+      $('#backup').append($('#backupsvg'));
+      _this.ready();
+    },500)
   }
   componentWillUnmount(){
     $('body').append($('#backupsvg'));
@@ -52,7 +55,7 @@ class Backup extends Component {
       locked=true;
 
       $('#backuptips').css("visibility","hidden");
-      $('#backuptext').text("备份中...");
+      $('#backuptext').text("正在为您备份");
       $('#backuptext').css({
         "color":"rgb(237,237,237)"
       });
@@ -110,10 +113,9 @@ class Backup extends Component {
             ease:Back.easeOut
           });
 
-          $('#backuptext').text("完成");
+          $('#backuptext').text("备份完成");
           $('#backuptext').css({
-            "color":"rgb(90,241,88)",
-            "margin-top":"0"
+            "color":"rgb(90,241,88)"
           });
           // back to normal
           setTimeout(function(){
@@ -137,12 +139,10 @@ class Backup extends Component {
                 });
               }
             });
-            $('#backuptips').html("距离上次备份 <span id='backuptips_number'>1</span> 分钟");
             $('#backuptips').css("visibility","visible");
-            $('#backuptext').text("已备份");
+            $('#backuptext').html("距离上次备份 <span id='backuptips_number'>1</span> 分钟");
             $('#backuptext').css({
-              "color":"rgb(247,142,66)",
-              "margin-top":"30px"
+              "color":"#eaf8fe"
             });
           },2000);
 
@@ -219,8 +219,7 @@ class Backup extends Component {
                 </div>
               </div>
 
-              <p id="backuptips">距离上次备份 <span id="backuptips_number">1</span> 天</p>
-              <p id="backuptext">已备份</p>
+              <p id="backuptext">距离上次备份 <span id='backuptips_number'>1</span> 分钟</p>
 
             </div>
            </div>;

@@ -23,8 +23,9 @@ class Operation extends Component {
       showtemp: false,
 
       // 0-safe   1-warning   2-danger
-      prisonstate:1
+      prisonstate:0
     };
+    this.timerid = 0;
     this.onClickbackup = this.onClickbackup.bind(this);
     this.onClickReturnBackup = this.onClickReturnBackup.bind(this);
     this.onClicktemp = this.onClicktemp.bind(this);
@@ -43,7 +44,7 @@ class Operation extends Component {
     setTimeout(function(){_this.setState({showservertext:true});},_starttexttime + 200);
     setTimeout(function(){_this.setState({showbackuptext:true});},_starttexttime + 300);
 
-    setInterval(function(){
+    this.timerid = setInterval(function(){
       var curstate = _this.state.prisonstate;
       curstate ++;
       if(curstate > 2){
@@ -51,6 +52,10 @@ class Operation extends Component {
       }
       _this.setState({prisonstate:curstate});
     },3000);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.timerid);
   }
   onClickbackup(){
     this.setState({showbackup:true});

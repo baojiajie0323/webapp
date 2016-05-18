@@ -1,6 +1,18 @@
 
 #operation{
-    background-color: rgb(247,247,247);
+  transition: all 0.5s ease;
+}
+
+.statecolor_safe{
+  background-color: rgb(32,142,165);
+}
+
+.statecolor_warning{
+  background-color:#C0AD2D;
+}
+
+.statecolor_danger{
+  background-color:rgb(235,79,65);
 }
 
 #stateblock{
@@ -8,8 +20,6 @@
   width: 100%;
   top: 70px;
   bottom: 320px;
-  /* height: 45%; */
-  background-color: #374B6F;
 }
 
 #operateinfo{
@@ -20,6 +30,7 @@
   padding: 30px 0 0 0;
   display: flex;
   flex-wrap: wrap;
+  background-color: rgb(247,247,247);
 }
 
 .operateblock{
@@ -35,36 +46,6 @@
   width: 1px;
   height: 50%;
   background-color: rgb(198,198,198);
-}
-
-#deviceblock{
-  position: absolute;
-  width: 100%;
-
-}
-
-#serverblock{
-  background-color: rgb(241,210,96);
-  position: absolute;
-  width: 34%;
-  left: 33%;
-  transition: all 0.5s ease;
-}
-
-#tempblock{
-  background-color: rgb(123,54,86);
-  position: absolute;
-  width: 33%;
-  left: 0;
-  transition: all 0.5s ease;
-}
-
-#backupblock{
-  background-color: rgb(244,144,102);
-  position: absolute;
-  width: 33%;
-  left: 67%;
-  transition: all 0.5s ease;
 }
 
 .blockpanel{
@@ -114,4 +95,81 @@
 
 .backgroundtransparent{
   background-color: transparent;
+}
+
+
+#operstate_roundbk{
+  position: relative;
+  margin: 25px auto;
+  width: 200px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+#operate_round2,
+#operate_round1{
+  position: absolute;
+  margin: 15px 15px;
+  width: 170px;
+  height: 170px;
+  //background-color: rgba(255, 255, 255, 0.2);
+  //border-radius: 50%;
+  background-image:url("../img/round.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#operate_round2
+{
+    transform: rotate(180deg);
+}
+
+#operate_round3{
+  position: absolute;
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  border: white 3px solid;
+  margin: 26px;
+  transition: all 0.5s ease;
+}
+
+#operate_safeicon{
+  position: absolute;
+  width: 70px;
+  height: 65px;
+  margin: 20px 39px;
+  background-image:  url("../img/safe.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#operate_warningicon{
+  position: absolute;
+  width: 70px;
+  height: 65px;
+  margin: 20px 39px;
+  background-image:  url("../img/danger1.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#operate_dangericon{
+  position: absolute;
+  width: 70px;
+  height: 65px;
+  margin: 20px 37px;
+  background-image:  url("../img/danger2.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#statetext{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 92px;
+  font-size: 13px;
+  color: white;
 }

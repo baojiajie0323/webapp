@@ -21,6 +21,9 @@ class Operation extends Component {
       showdevice: false,
       showserver: false,
       showtemp: false,
+
+      // 0-safe   1-warning   2-danger
+      prisonstate:1
     };
     this.onClickbackup = this.onClickbackup.bind(this);
     this.onClickReturnBackup = this.onClickReturnBackup.bind(this);
@@ -39,6 +42,15 @@ class Operation extends Component {
     setTimeout(function(){_this.setState({showtemptext:true});},_starttexttime + 100);
     setTimeout(function(){_this.setState({showservertext:true});},_starttexttime + 200);
     setTimeout(function(){_this.setState({showbackuptext:true});},_starttexttime + 300);
+
+    setInterval(function(){
+      var curstate = _this.state.prisonstate;
+      curstate ++;
+      if(curstate > 2){
+        curstate = 0;
+      }
+      _this.setState({prisonstate:curstate});
+    },3000);
   }
   onClickbackup(){
     this.setState({showbackup:true});
@@ -77,11 +89,36 @@ class Operation extends Component {
     }else if(this.state.showdevice){
       subpage = <Device key="Device" returnfun={this.onClickReturnDevice}/>;
     }
-    return <div id="operation" className="weui_tab_bd">
-              <div className="titlebar">
+    var stateicon = null;
+    var statecolor = "";
+    var statetext = "";
+    if(this.state.prisonstate == 0){
+      stateicon = <div id="operate_safeicon"></div>;
+      statecolor = " statecolor_safe";
+      statetext = "监所状态良好";
+    }else if(this.state.prisonstate == 1){
+      stateicon = <div id="operate_warningicon"></div>;
+      statecolor = " statecolor_warning";
+      statetext = "监所存在风险";
+    }else if(this.state.prisonstate == 2){
+      stateicon = <div id="operate_dangericon"></div>;
+      statecolor = " statecolor_danger";
+      statetext = "监所处于危险中";
+    }
+
+    return <div id="operation" className={"weui_tab_bd" + statecolor}>
+              <div className="titlebar backgroundtransparent">
                 <p className="titlebar_title">运维中心</p>
               </div>
               <div id="stateblock">
+                <div id="operstate_roundbk">
+                  <div id="operate_round1"></div>
+                  <div id="operate_round2"></div>
+                  <div id="operate_round3" className={statecolor}>
+                    {stateicon}
+                    <p id="statetext">{statetext}</p>
+                  </div>
+                </div>
               </div>
               <div id="operateinfo">
                 <p id="operationinfo_title">监所运维数据统计</p>
